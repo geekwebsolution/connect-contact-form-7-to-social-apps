@@ -1,0 +1,186 @@
+label.cf7cw-switch {
+  cursor: pointer;
+}
+
+label.cf7cw-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 22px;
+}
+
+label.cf7cw-switch input[type="checkbox"] {
+  display: none;
+}
+
+label.cf7cw-switch input:checked + .cf7cw-slider {
+  background-color: #2196f3;
+}
+
+.cf7cw-slider {
+  border-radius: 20px;
+  box-shadow: 2px 2px 30px rgb(0 0 0 / 20%);
+}
+
+.cf7cw-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input.cf7cw-checkbox:checked + .cf7cw-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(36px);
+}
+
+.cf7cw-slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 0;
+  bottom: 0px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+#contact-form-editor .cf7cw-sec .form-table th {
+  width: 125px;
+}
+
+.large-text.cf7cw-input-error {
+  border-color: red;
+}
+
+#connect-whatsapp span.mailtag {
+  display: inline-block;
+  margin: 0 0 0 4px;
+  padding: 1px 2px;
+  cursor: pointer;
+  color: #000000f2;
+}
+
+#connect-whatsapp td p {
+  padding-top: 9px;
+  line-height: 8px;
+  font-family: Consolas, Monaco, monospace;
+}
+
+.cf7cw-messages {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 1em;
+  background-color: #e4e4e7;
+}
+
+.cf7cw-messages p {
+  padding: 0 !important;
+}
+
+.cf7cw-config:before {
+  content: " ! ";
+  position: absolute;
+  display: block;
+  width: 17px;
+  height: 17px;
+  top: 7px;
+  right: 7px;
+  border-radius: 11px;
+  background-color: #ca4a1f;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 17px;
+  text-align: center;
+  z-index: 26;
+}
+
+.cf7cw-config {
+  position: relative;
+}
+
+.cf7cw-config a {
+  padding-right: 30px !important;
+}
+
+.cf7cw-none {
+  display: none !important;
+}
+
+/* pro field CSS */
+.cf7cw-alt-numbers-table tr.first {
+  display: none;
+}
+
+.cf7cw-add-btn-wp .cf7cw-add-btn {
+  position: relative;
+  padding: 5px 15px;
+  border: 1px solid;
+  border-radius: 3px;
+  text-decoration: none;
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+/* .cf7cw-add-channel a,
+  .cf7cw-alt-numbers-table tbody tr td a{
+      
+  } */
+.cf7cw-alt-numbers-table {
+  border-collapse: collapse;
+  background-color: #ffff;
+  margin: 20px 0 0 0;
+  border: 1px solid #c7c7c7;
+}
+
+.cf7cw-alt-numbers-table tbody tr:nth-child(odd) {
+  background-color: #f3f3f3;
+}
+
+.cf7cw-alt-numbers-table tbody tr td a {
+  border: 1px solid #2271b1;
+  border-radius: 3px;
+  padding: 3px 6px;
+  text-decoration: none !important;
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.cf7cw-slider.cf7cw-round.cf7cw-disable-mail {
+  cursor: not-allowed;
+}
+
+.cf7cw-add-btn-wp {
+  position: relative;
+}
+
+.cf7cw-pro-btn {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 12px;
+  min-width: 35px;
+  min-height: 20px;
+  font-weight: bold;
+  background-color: green;
+  text-decoration: none !important;
+  color: #fff !important;
+  top: 50%;
+  left: calc(100% + 10px);
+  transform: translate(0, -50%);
+}
+
+.cf7cw-switch .cf7cw-disable-mail {
+  opacity: 0.7;
+}
