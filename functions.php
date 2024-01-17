@@ -12,9 +12,11 @@ if(!class_exists('cf7cw_functions')){
             add_action( 'wpcf7_mail_sent', array( 'cf7cw_functions', 'cf7cw_after_mail_sent_call' ) );
         }
 
-        public function cf7cw_enqueue_admin_scripts() {
-            wp_enqueue_style('cf7cw-admin-css', plugins_url('assets/css/cf7cw-admin-style.css', __FILE__), array(), CF7CW_PLUGIN_VERSION);
-            wp_enqueue_script('cf7cw-admin-script-js', plugins_url('assets/js/cf7cw-admin-scripts.js', __FILE__), array('jquery'), CF7CW_PLUGIN_VERSION);
+        public function cf7cw_enqueue_admin_scripts( $hook ) {
+            if($hook == 'toplevel_page_wpcf7') {
+                wp_enqueue_style('cf7cw-admin-css', plugins_url('assets/css/cf7cw-admin-style.css', __FILE__), array(), CF7CW_PLUGIN_VERSION);
+                wp_enqueue_script('cf7cw-admin-script-js', plugins_url('assets/js/cf7cw-admin-scripts.js', __FILE__), array('jquery'), CF7CW_PLUGIN_VERSION);
+            }
         }
 
         public function cf7cw_enqueue_scripts() {
@@ -25,7 +27,7 @@ if(!class_exists('cf7cw_functions')){
 
         static function rep_shortcode($form_id, $inputs){
             
-            $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = false );
+            $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = array() );
             $string = wp_unslash($cf7cw_option['cf7cw_message_body']);
 
             $ContactForm = WPCF7_ContactForm::get_instance($form_id);
@@ -79,7 +81,7 @@ if(!class_exists('cf7cw_functions')){
 
         static function cf7cw_after_mail_sent_call($contactform) {
             $form_id = $contactform->id();
-            $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = false );
+            $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = array() );
             $form_title = $contactform->title();
             
             if(isset($cf7cw_option['cf7cw_status']) && !empty($cf7cw_option['cf7cw_status']) && isset($cf7cw_option['cf7cw_phone_number']) && !empty($cf7cw_option['cf7cw_phone_number'])){

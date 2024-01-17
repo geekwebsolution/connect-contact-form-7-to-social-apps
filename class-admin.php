@@ -21,7 +21,7 @@ if (!class_exists('cf7cw_connect_wh_settings')) {
         {
             $cf7cw_nonce = wp_create_nonce('cf7cw_option_nonce');
             $form_id = $post->id();
-            $option = get_option('cf7cw_connect_wh_' . $form_id, $default = false);
+            $option = get_option('cf7cw_connect_wh_' . $form_id, $default = array());
             $phone = isset($option['cf7cw_message_body']) ? $option['cf7cw_phone_number']: '';
             $cf7cw_message_body = isset($option['cf7cw_message_body']) ? $option['cf7cw_message_body']: cf7cw_connect_wh_settings::connect_wh_message_body();
 
