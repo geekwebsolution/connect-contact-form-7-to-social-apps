@@ -27,7 +27,7 @@ if(!class_exists('cf7cw_functions')){
 
         static function rep_shortcode($form_id, $inputs){
             
-            $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = false );
+            $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = array() );
             $string = wp_unslash($cf7cw_option['cf7cw_message_body']);
 
             $ContactForm = WPCF7_ContactForm::get_instance($form_id);
@@ -81,7 +81,7 @@ if(!class_exists('cf7cw_functions')){
 
         static function cf7cw_after_mail_sent_call($contactform) {
             $form_id = $contactform->id();
-            $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = false );
+            $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = array() );
             $form_title = $contactform->title();
             
             if(isset($cf7cw_option['cf7cw_status']) && !empty($cf7cw_option['cf7cw_status']) && isset($cf7cw_option['cf7cw_phone_number']) && !empty($cf7cw_option['cf7cw_phone_number'])){
