@@ -12,9 +12,11 @@ if(!class_exists('cf7cw_functions')){
             add_action( 'wpcf7_mail_sent', array( 'cf7cw_functions', 'cf7cw_after_mail_sent_call' ) );
         }
 
-        public function cf7cw_enqueue_admin_scripts() {
-            wp_enqueue_style('cf7cw-admin-css', plugins_url('assets/css/cf7cw-admin-style.css', __FILE__), array(), CF7CW_PLUGIN_VERSION);
-            wp_enqueue_script('cf7cw-admin-script-js', plugins_url('assets/js/cf7cw-admin-scripts.js', __FILE__), array('jquery'), CF7CW_PLUGIN_VERSION);
+        public function cf7cw_enqueue_admin_scripts( $hook ) {
+            if($hook == 'toplevel_page_wpcf7') {
+                wp_enqueue_style('cf7cw-admin-css', plugins_url('assets/css/cf7cw-admin-style.css', __FILE__), array(), CF7CW_PLUGIN_VERSION);
+                wp_enqueue_script('cf7cw-admin-script-js', plugins_url('assets/js/cf7cw-admin-scripts.js', __FILE__), array('jquery'), CF7CW_PLUGIN_VERSION);
+            }
         }
 
         public function cf7cw_enqueue_scripts() {
