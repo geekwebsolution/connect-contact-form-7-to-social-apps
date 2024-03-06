@@ -70,7 +70,7 @@ if(!class_exists('cf7cw_tel_functions')) {
         }
 
         /** On submit of bot token */
-        private function save_bot_token() {            
+        public function save_bot_token() {            
             $token = $_REQUEST['cf7cw_telegram_tkn'];
             $this->set_bot_token( $token );
             return $this;
