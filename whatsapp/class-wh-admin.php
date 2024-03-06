@@ -4,8 +4,8 @@ if (!class_exists('cf7cw_connect_wh_settings')) {
     {
         public function __construct()
         {
-            add_action('wpcf7_editor_panels', array('cf7cw_connect_wh_settings', 'connect_wh_add_tab'));
-            add_action('wpcf7_after_save', array('cf7cw_connect_wh_settings', 'cf7cw_save_settings_call'));
+            add_action( 'wpcf7_editor_panels', array( $this, 'connect_wh_add_tab'));
+            add_action( 'wpcf7_after_save', array( $this, 'cf7cw_save_wh_settings_call'));
         }
 
         static function connect_wh_add_tab($panels)
@@ -27,62 +27,62 @@ if (!class_exists('cf7cw_connect_wh_settings')) {
 
             $phone_err = false;
             if (isset($option['cf7cw_phone_number']) && empty($option['cf7cw_phone_number']) && $option['cf7cw_status'] == 'on') $phone_err = true; ?>
-            <h2><?php esc_html_e('Whatsapp', 'connect-contact-form-7-to-social-app'); ?></h2>
+            <h2><?php esc_html_e('Whatsapp', CF7CW_TEXT_DOMAIN); ?></h2>
             <legend>
-                <?php esc_html_e('In the message body, you can use these tags:', 'connect-contact-form-7-to-social-app'); ?><br>
+                <?php esc_html_e('In the message body, you can use these tags:', CF7CW_TEXT_DOMAIN); ?><br>
                 <?php $post->suggest_mail_tags(); ?>
             </legend>
             <div class="cf7cw-sec">
                 <table class="form-table">
                     <tr>
                         <th scope="row">
-                            <label><?php esc_html_e('Status', 'connect-contact-form-7-to-social-app'); ?></label>
+                            <label><?php esc_html_e('Status', CF7CW_TEXT_DOMAIN); ?></label>
                         </th>
                         <td>
                             <label class="cf7cw-switch">
-                                <input type="checkbox" class="cf7cw-checkbox" name="cf7cw-plugin-status" value="on" <?php if (isset($option['cf7cw_status']) && $option['cf7cw_status'] == 'on') esc_attr_e('checked', 'connect-contact-form-7-to-social-app'); ?>>
+                                <input type="checkbox" class="cf7cw-checkbox" name="cf7cw-plugin-status" value="on" <?php if (isset($option['cf7cw_status']) && $option['cf7cw_status'] == 'on') esc_attr_e('checked'); ?>>
                                 <span class="cf7cw-slider cf7cw-round"></span>
                             </label>
-                            <p><?php esc_html_e('Enable to connect whatsapp for this contact form.', 'connect-contact-form-7-to-social-app'); ?></p>
+                            <p><?php esc_html_e('Enable to connect whatsapp for this contact form.', CF7CW_TEXT_DOMAIN); ?></p>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">
-                            <label><?php esc_html_e('Whatsapp Number', 'connect-contact-form-7-to-social-app'); ?></label>
+                            <label><?php esc_html_e('Whatsapp Number', CF7CW_TEXT_DOMAIN); ?></label>
                         </th>
                         <td>
-                            <input type="number" id="cf7cw_phone_number" name="cf7cw-phone-number" class="large-text code <?php if ($phone_err == true) esc_attr_e('cf7cw-input-error', 'connect-contact-form-7-to-social-app'); ?>" value="<?php esc_html_e($phone, 'connect-contact-form-7-to-social-app'); ?>" min="0">
-                            <p><?php esc_html_e('Use: 1XXXXXXXXXX', 'connect-contact-form-7-to-social-app'); ?></p>
-                            <p><?php esc_html_e('Do not use: +001-(XXX)XXXXXXX', 'connect-contact-form-7-to-social-app'); ?></p>
+                            <input type="number" id="cf7cw_phone_number" name="cf7cw-phone-number" class="large-text code <?php if ($phone_err == true) esc_attr_e('cf7cw-input-error', CF7CW_TEXT_DOMAIN); ?>" value="<?php esc_html_e($phone); ?>" min="0">
+                            <p><?php esc_html_e('Use: 1XXXXXXXXXX', CF7CW_TEXT_DOMAIN); ?></p>
+                            <p><?php esc_html_e('Do not use: +001-(XXX)XXXXXXX', CF7CW_TEXT_DOMAIN); ?></p>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">
-                            <label><?php esc_html_e('Message', 'connect-contact-form-7-to-social-app'); ?></label>
+                            <label><?php esc_html_e('Message', CF7CW_TEXT_DOMAIN); ?></label>
                         </th>
                         <td>
                             <textarea id="cf7cw_message_body" name="cf7cw-message-body" cols="100" rows="18" class="large-text code"><?php echo esc_html(wp_unslash($cf7cw_message_body)); ?></textarea>
-                            <a target="_blank" style="text-decoration:underline" href="https://faq.whatsapp.com/general/chats/how-to-format-your-messages/?lang=en"><?php esc_html_e('Format your whatsapp message', 'connect-contact-form-7-to-social-app'); ?></a>
-                            <p><?php esc_html_e('Note:', 'connect-contact-form-7-to-social-app'); ?> <i><?php esc_html_e('File Upload field will not support on WhatsApp message body.', 'connect-contact-form-7-to-social-app'); ?></i></p>
+                            <a target="_blank" style="text-decoration:underline" href="https://faq.whatsapp.com/general/chats/how-to-format-your-messages/?lang=en"><?php esc_html_e('Format your whatsapp message', CF7CW_TEXT_DOMAIN); ?></a>
+                            <p><?php esc_html_e('Note:', CF7CW_TEXT_DOMAIN); ?> <i><?php esc_html_e('File Upload field will not support on WhatsApp message body.', CF7CW_TEXT_DOMAIN); ?></i></p>
                         </td>
                     </tr>
 
                     <tr>
                         <th scope="row">
-                            <label><?php esc_html_e('Open in new tab', 'connect-contact-form-7-to-social-app'); ?></label>
+                            <label><?php esc_html_e('Open in new tab', CF7CW_TEXT_DOMAIN); ?></label>
                         </th>
                         <td>
                             <label class="cf7cw-switch">
-                                <input type="checkbox" class="cf7cw-checkbox" name="cf7cw-open-new-tab" value="on" <?php if (isset($option['cf7cw_open_new_tab']) && $option['cf7cw_open_new_tab'] == 'on') esc_attr_e('checked', 'connect-contact-form-7-to-social-app'); ?>>
+                                <input type="checkbox" class="cf7cw-checkbox" name="cf7cw-open-new-tab" value="on" <?php if (isset($option['cf7cw_open_new_tab']) && $option['cf7cw_open_new_tab'] == 'on') esc_attr_e('checked'); ?>>
                                 <span class="cf7cw-slider cf7cw-round"></span>
                             </label>
-                            <p><?php esc_html_e('Enable to open whatsapp in new tab.', 'connect-contact-form-7-to-social-app'); ?></p>
-                            <p><?php esc_html_e('Note:', 'connect-contact-form-7-to-social-app'); ?> <i><?php esc_html_e('This option is for only desktop devices, It will be useful for WhatsApp web on desktop devices.', 'connect-contact-form-7-to-social-app'); ?></i></p>
+                            <p><?php esc_html_e('Enable to open whatsapp in new tab.', CF7CW_TEXT_DOMAIN); ?></p>
+                            <p><?php esc_html_e('Note:', CF7CW_TEXT_DOMAIN); ?> <i><?php esc_html_e('This option is for only desktop devices, It will be useful for WhatsApp web on desktop devices.', CF7CW_TEXT_DOMAIN); ?></i></p>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">
-                            <label><?php esc_html_e('Alternative Numbers', 'connect-contact-form-7-to-social-app-pro'); ?></label>
+                            <label><?php esc_html_e('Alternative Numbers', CF7CW_TEXT_DOMAIN); ?></label>
                         </th>
                         <td>
                             <div class="cf7cw-add-channel">
@@ -101,16 +101,16 @@ if (!class_exists('cf7cw_connect_wh_settings')) {
                             <?php
                             printf(
                                 '<p><i>%1$s <strong>%2$s</strong> %3$s</i></p>',
-                                esc_html__('You can use', 'connect-contact-form-7-to-social-app-pro'),
-                                esc_html__('[cf7cwp_channel field-name]', 'connect-contact-form-7-to-social-app-pro'),
-                                esc_html__('tag to allow guest/user select WA number to send.', 'connect-contact-form-7-to-social-app-pro')
+                                esc_html__('You can use', CF7CW_TEXT_DOMAIN),
+                                esc_html__('[cf7cwp_channel field-name]', CF7CW_TEXT_DOMAIN),
+                                esc_html__('tag to allow guest/user select WA number to send.', CF7CW_TEXT_DOMAIN)
                             );
                             ?>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">
-                            <label><?php esc_html_e('Disable mail sending', 'connect-contact-form-7-to-social-app-pro'); ?></label>
+                            <label><?php esc_html_e('Disable mail sending', CF7CW_TEXT_DOMAIN); ?></label>
                         </th>
                         <td>
                             <label class="cf7cw-switch">
@@ -118,18 +118,18 @@ if (!class_exists('cf7cw_connect_wh_settings')) {
                                 <span class="cf7cw-slider cf7cw-round cf7cw-disable-mail"></span>
                                 <a href="<?php echo CF7CW_PRO_PLUGIN_LINK; ?>" target="_blank" class="cf7cw-pro-btn" title="Upgrade to Pro">Pro</a>
                             </label>
-                            <p><?php esc_html_e('Enable to stop mail from this contact form.', 'connect-contact-form-7-to-social-app-pro'); ?></p>
+                            <p><?php esc_html_e('Enable to stop mail from this contact form.', CF7CW_TEXT_DOMAIN); ?></p>
                         </td>
                     </tr>
                     <div class="cf7cw-hidden-input">
-                        <input type="hidden" name="cf7cw-nonce" value="<?php esc_attr_e($cf7cw_nonce, 'connect-contact-form-7-to-social-app');  ?>">
+                        <input type="hidden" name="cf7cw-nonce" value="<?php esc_attr_e($cf7cw_nonce);  ?>">
                     </div>
                 </table>
             </div>
             <?php
         }
 
-        static function cf7cw_save_settings_call($contact_form)
+        static function cf7cw_save_wh_settings_call($contact_form)
         {
             $form_id = $contact_form->id();
             $form_title = $contact_form->title();

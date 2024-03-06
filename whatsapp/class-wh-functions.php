@@ -1,31 +1,30 @@
 <?php
-if(!class_exists('cf7cw_functions')){
-    class cf7cw_functions
+if(!class_exists('cf7cw_wh_functions')){
+    class cf7cw_wh_functions
     {
         public function __construct() {
             if (is_admin()) {
                 add_action('admin_enqueue_scripts', array( $this, 'cf7cw_enqueue_admin_scripts'));
             }else{
                 add_action('wp_enqueue_scripts',  array( $this, 'cf7cw_enqueue_scripts'), 999, 1);
+                add_action( 'wpcf7_mail_sent', array( 'cf7cw_wh_functions', 'cf7cw_after_mail_sent_call' ) );
             }            
-            add_action('flamingo_inbound', [$this, 'get_serial_number']);
-            add_action( 'wpcf7_mail_sent', array( 'cf7cw_functions', 'cf7cw_after_mail_sent_call' ) );
         }
 
         public function cf7cw_enqueue_admin_scripts( $hook ) {
             if($hook == 'toplevel_page_wpcf7') {
-                wp_enqueue_style('cf7cw-admin-css', plugins_url('assets/css/cf7cw-admin-style.css', __FILE__), array(), CF7CW_PLUGIN_VERSION);
-                wp_enqueue_script('cf7cw-admin-script-js', plugins_url('assets/js/cf7cw-admin-scripts.js', __FILE__), array('jquery'), CF7CW_PLUGIN_VERSION);
+                wp_enqueue_style('cf7cw-admin-css', plugins_url('assets/css/admin-style.css', __FILE__), array(), CF7CW_PLUGIN_VERSION);
+                wp_enqueue_script('cf7cw-admin-script-js', plugins_url('assets/js/admin-script.js', __FILE__), array('jquery'), CF7CW_PLUGIN_VERSION);
             }
         }
 
         public function cf7cw_enqueue_scripts() {
-            wp_register_script( "cf7cw_script",  plugins_url('/assets/js/cf7cw-front-script.js', __FILE__), array('jquery'), CF7CW_PLUGIN_VERSION, true);
+            wp_register_script( "cf7cw_script",  plugins_url('assets/js/front-script.js', __FILE__), array('jquery'), CF7CW_PLUGIN_VERSION, true);
             wp_enqueue_script("cf7cw_script");
             wp_localize_script('cf7cw_script', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
         }
 
-        static function rep_shortcode($form_id, $inputs){
+        static function wh_message_body($form_id, $inputs){
             
             $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = array() );
             $string = wp_unslash($cf7cw_option['cf7cw_message_body']);
@@ -84,52 +83,14 @@ if(!class_exists('cf7cw_functions')){
             $cf7cw_option = get_option( 'cf7cw_connect_wh_' . $form_id , $default = array() );
             $form_title = $contactform->title();
             
-            if(isset($cf7cw_option['cf7cw_status']) && !empty($cf7cw_option['cf7cw_status']) && isset($cf7cw_option['cf7cw_phone_number']) && !empty($cf7cw_option['cf7cw_phone_number'])){
-                $inputs = array();
-                $submission = WPCF7_Submission::get_instance();                                
-                $inputs = $submission->get_posted_data();                     
-
-                $remote_ip = $submission->get_meta( 'remote_ip' ) ? $submission->get_meta( 'remote_ip' ) : '';
-                $user_agent = $submission->get_meta( 'user_agent' ) ? $submission->get_meta( 'user_agent' ) : '';
-                $url = $submission->get_meta( 'url' ) ? $submission->get_meta( 'url' ) : '';
+            if(isset($cf7cw_option['cf7cw_status']) && !empty($cf7cw_option['cf7cw_status']) && isset($cf7cw_option['cf7cw_phone_number']) && !empty($cf7cw_option['cf7cw_phone_number'])) {
                 
-                if ( $timestamp = $submission->get_meta( 'timestamp' ) ) {
-                    $date = wp_date( get_option( 'date_format' ), $timestamp );
-                    $time = wp_date( get_option( 'time_format' ), $timestamp );
-                }
+                $wh_message_body = (isset($cf7cw_option['cf7cw_message_body'])) ? wp_unslash($cf7cw_option['cf7cw_message_body']) : '';
+                $wh_message_body = wpcf7_mail_replace_tags( @ $wh_message_body );
 
-                $invalid_fields = count( $submission->get_invalid_fields() );
+                $wh_message_body = str_replace( "[form-title]", $form_title , $wh_message_body );
 
-                if ( class_exists( 'Flamingo_Inbound_Message' ) ) {
-                
-                    $post_meta = get_post_meta( $form_id, '_flamingo', true );
-
-                    if($post_meta) {   
-                        $channel_id = isset( $post_meta['channel'] ) ? (int) $post_meta['channel'] : wpcf7_flamingo_add_channel( $contact_form->name(), $contact_form->title() );
-                        
-                        if ( $channel_id ) {
-                            $srnum = 1 + (int) Flamingo_Inbound_Message::count(array( 'channel_id' => $channel_id ) );
-                            $inputs['_serial_number'] = $srnum;
-                        }
-                    }
-
-                }
-
-                $inputs['form-id'] = $form_id;                
-                $inputs['form-title'] = $form_title;
-                $inputs['_remote_ip'] = $remote_ip;
-                $inputs['_user_agent'] = $user_agent;
-                $inputs['_url'] = $url;
-                $inputs['_date'] = $date;
-                $inputs['_time'] = $time;
-                $inputs['_invalid_fields'] = $invalid_fields;
-                $inputs['_site_title'] = get_bloginfo( 'name' );
-                $inputs['_site_description'] = get_bloginfo( 'description' );
-                $inputs['_site_url'] = get_bloginfo('url');
-                $inputs['_site_admin_email'] = get_bloginfo('admin_email');
-
-                $new_msg = cf7cw_functions::rep_shortcode($form_id, $inputs);
-                $wh_url = "https://wa.me/" . $cf7cw_option['cf7cw_phone_number'] . "/?text=" . urlencode(html_entity_decode($new_msg));
+                $wh_url = "https://wa.me/" . $cf7cw_option['cf7cw_phone_number'] . "/?text=" . urlencode(html_entity_decode($wh_message_body));
     
                 $cf7cw_new_opt = array();
                 $cf7cw_new_opt['cf7cw_wh_url'] = $wh_url;
@@ -139,8 +100,8 @@ if(!class_exists('cf7cw_functions')){
             }
             $cookie_name = "cf7cw_options";
             setcookie($cookie_name, json_encode($cf7cw_new_opt), time() + (86400 * 30), "/");
-        }        
+        }
 
     }
-    new cf7cw_functions();
+    new cf7cw_wh_functions();
 }

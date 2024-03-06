@@ -2,10 +2,10 @@
 Contributors: rajkakadiya, rvadhel
 Donate link: https://paypal.me/rvadhel
 Tags: whatsapp, contact form 7, click to chat, whatsapp chat, whatsapp support
-Requires PHP: 5.2.4
-Requires at least: 3.0.1
+Requires PHP: 7.4
+Requires at least: 6.4
 Tested up to: 6.4.2
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv2 or later
 
 Connect Contact Form 7 to WhatsApp is a WhatsApp notification plugin for WordPress that makes it really simple to send your Contact Form 7 forms directly to your WhatsApp account.
@@ -48,6 +48,10 @@ After active plugin go to Contact form 7-> Edit Form -> WhatsApp(tab)
 
 
 == Changelog ==
+= 2.1 =
+ New feature
+  - Added telegram support
+
 = 2.0 =
  Fixed bugs.
 
