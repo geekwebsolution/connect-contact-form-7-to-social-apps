@@ -182,7 +182,7 @@ if(!class_exists('cf7cw_tel_functions')) {
             endif;
         }
 
-        private function get_listitem_data( $chat, $status = 'pending' ){
+        public function get_listitem_data( $chat, $status = 'pending' ){
             $first_name = isset($chat['first_name']) ? $chat['first_name'] : '';
             $last_name = isset($chat['last_name']) ? $chat['last_name'] : '';
             $fullname = (!empty($first_name) && !empty($last_name)) ? $first_name .' '. $last_name : $first_name . $last_name;
@@ -198,7 +198,7 @@ if(!class_exists('cf7cw_tel_functions')) {
             );
         }
 
-        private function get_chats( $status = 'active' ){
+        public function get_chats( $status = 'active' ){
             $result = array();
             foreach ( $this->chats as $id => $chat ) :
                 if ( $status == $chat['status'] )

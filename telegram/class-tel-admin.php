@@ -3,6 +3,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
     class cf7cw_connect_tel_settings
     {
         private $tel_fns;
+        private $cmd = 'cf7cw_start';
 
         public function __construct()
         {
@@ -21,13 +22,12 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
             add_submenu_page( 'wpcf7', 'CF7 Telegram', 'CF7 Telegram', 'wpcf7_read_contact_forms', 'cf7cw_telegram', array( $this, 'plugin_menu_cbf' ) );
         }
 
-        public function plugin_menu_cbf() {
-            $class_tel_fns = $this->tel_fns; ?>	
+        public function plugin_menu_cbf() { ?>	
             <div class="wrap">
                 <h1><?php echo __( 'Telegram notification settings', CF7CW_TEXT_DOMAIN ); ?></h1>
                 <?php 
-                    $class_tel_fns->bot_status();
-                    $class_tel_fns->view_full_list();
+                    $this->tel_fns->bot_status();
+                    $this->view_full_list();
                     settings_errors(); 
                 ?>
                 <form method="post" action="admin.php?page=cf7cw_telegram"> 
@@ -45,7 +45,6 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
          * Telegram setting fields
          */
         function settings_section() {
-            $class_tel_fns = $this->tel_fns;
             add_settings_section(
                 'cf7cw_sections_main', 
                 __( 'Bot-settings', CF7CW_TEXT_DOMAIN ),
@@ -62,7 +61,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
                 array(
                     'type'		=> 'password',
                     'name'		=> 'cf7cw_telegram_tkn',
-                    'value'		=> $class_tel_fns->get_bot_token(),
+                    'value'		=> $this->tel_fns->get_bot_token(),
                     'ph'		=> __( 'or define by CF7CW_BOT_TOKEN constant', CF7CW_TEXT_DOMAIN ),
                 )
             );
@@ -72,7 +71,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
             switch ( $data['type'] ){
                 case 'text' :;
                 case 'password' :
-                    $disabled = ! empty( $data['disabled'] ) ? ' disabled="disabled" ' : '';
+                    $disabled = !empty( $data['disabled'] ) ? ' disabled="disabled" ' : '';
                     $placeholder = ' placeholder="'. esc_attr( @$data['ph'] ) . '"';
                     echo 
                     '<input type="'. esc_attr( $data['type'] ) .'" ' .
@@ -88,12 +87,11 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
         /**
          * Admin telegram settings form submission
          */
-        public function save_form(){
-            $class_tel_fns = $this->tel_fns;
+        public function save_form() {
             if ( $this->current_action() !== 'update' ) return;
             if ( ! wp_verify_nonce( @ $_POST['_wpnonce'], 'cf7cw_settings_page-options' ) ) return;
             
-            $class_tel_fns->save_bot_token();
+            $this->tel_fns->save_bot_token();
         }
 
         public function current_action(){
@@ -175,7 +173,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
             $cf7cw_tel_wpnonce = sanitize_text_field($_POST['cf7cw-tel-nonce']);
 
             $cf7cw_status = $cf7cw_message_body = "";
-            if (isset($_POST['cf7cw-tel-status'])) $cf7cw_status      = sanitize_text_field($_POST['cf7cw-tel-status']);
+            if (isset($_POST['cf7cw-tel-status']))  $cf7cw_status = sanitize_text_field($_POST['cf7cw-tel-status']);
             if (isset($_POST['cf7cw-tel-message-body'])) $cf7cw_message_body = sanitize_textarea_field($_POST['cf7cw-tel-message-body']);
             $cf7cw['form_id'] = $form_id;
             $cf7cw['form_title'] = $form_title;
@@ -193,7 +191,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
         }
 
         /** View full list section */
-        function view_full_list(){
+        public function view_full_list(){
             echo '<h2>'. __( 'Subscribers list', CF7CW_TEXT_DOMAIN ) .'</h2>';
             
             $req = $this->pending_html_list();
@@ -206,21 +204,21 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
         }
 
         private function approved_html_list(){
-            $list = $class_tel_fns->get_chats();
+            $list = $this->tel_fns->get_chats();
             if ( empty( $list) ) return array();
             
             foreach( $list as $id => $chat )				
-            echo vsprintf( $this->get_template( 'f_item' ), $class_tel_fns->get_listitem_data( $chat, 'active' ) );
+            echo vsprintf( $this->get_template( 'f_item' ), $this->tel_fns->get_listitem_data( $chat, 'active' ) );
     
             return true;
         }
         
-        private function pending_html_list(){
-            $data = $class_tel_fns->get_chats( 'pending' );
+        private function pending_html_list() {
+            $data = $this->tel_fns->get_chats( 'pending' );
             if ( empty( $data ) ) return false;
             
             foreach( $data as $id => $item ) :
-                echo vsprintf( $this->get_template( 'f_item' ), $class_tel_fns->get_listitem_data( $item ) );
+                echo vsprintf( $this->get_template( 'f_item' ), $this->tel_fns->get_listitem_data( $item ) );
             endforeach;
             
             return true;
