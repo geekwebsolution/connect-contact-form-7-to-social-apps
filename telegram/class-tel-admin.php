@@ -2,15 +2,14 @@
 if (!class_exists('cf7cw_connect_tel_settings')) {
     class cf7cw_connect_tel_settings
     {
-        private $tel_fns;
         private $cmd = 'cf7cw_start';
 
         public function __construct()
         {
-            $this->tel_fns = new cf7cw_tel_functions();
+            // $this->tel_fns = new cf7cw_tel_functions();
             add_action( 'admin_menu', array( $this, 'menu_page' ) );
             add_action( 'admin_init', array( $this, 'save_form' ), 50 );
-            add_action( 'admin_init', array( $this, 'settings_section' ), 999 );
+            add_action( 'admin_init', array( $this, 'settings_section' ), PHP_INT_MAX );
             add_action( 'wpcf7_editor_panels', array( $this, 'connect_tel_add_tab' ));
             add_action( 'wpcf7_after_save', array( $this, 'cf7cw_save_tel_settings_call' ));
         }
@@ -26,7 +25,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
             <div class="wrap">
                 <h1><?php echo __( 'Telegram notification settings', CF7CW_TEXT_DOMAIN ); ?></h1>
                 <?php 
-                    $this->tel_fns->bot_status();
+                    cf7cw_tel_functions::bot_status();
                     $this->view_full_list();
                     settings_errors(); 
                 ?>
@@ -61,7 +60,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
                 array(
                     'type'		=> 'password',
                     'name'		=> 'cf7cw_telegram_tkn',
-                    'value'		=> $this->tel_fns->get_bot_token(),
+                    'value'		=> cf7cw_tel_functions::get_bot_token(),
                     'ph'		=> __( 'or define by CF7CW_BOT_TOKEN constant', CF7CW_TEXT_DOMAIN ),
                 )
             );
@@ -91,7 +90,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
             if ( $this->current_action() !== 'update' ) return;
             if ( ! wp_verify_nonce( @ $_POST['_wpnonce'], 'cf7cw_settings_page-options' ) ) return;
             
-            $this->tel_fns->save_bot_token();
+            cf7cw_tel_functions::save_bot_token();
         }
 
         public function current_action(){
@@ -115,7 +114,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
             $cf7cw_tel_option_nonce = wp_create_nonce('cf7cw_tel_option_nonce');
             $form_id = $post->id();
             $option = get_option('cf7cw_connect_tel_' . $form_id, $default = array());
-            $cf7cw_message_body = isset($option['cf7cw_message_body']) ? $option['cf7cw_message_body']: cf7cw_connect_tel_settings::connect_tel_message_body(); ?>
+            $cf7cw_message_body = isset($option['cf7cw_message_body']) ? htmlentities($option['cf7cw_message_body']): cf7cw_connect_tel_settings::connect_tel_message_body(); ?>
             
             <h2><?php esc_html_e('Telegram', CF7CW_TEXT_DOMAIN); ?></h2>
             <legend>
@@ -174,7 +173,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
 
             $cf7cw_status = $cf7cw_message_body = "";
             if (isset($_POST['cf7cw-tel-status']))  $cf7cw_status = sanitize_text_field($_POST['cf7cw-tel-status']);
-            if (isset($_POST['cf7cw-tel-message-body'])) $cf7cw_message_body = sanitize_textarea_field($_POST['cf7cw-tel-message-body']);
+            if (isset($_POST['cf7cw-tel-message-body'])) $cf7cw_message_body = html_entity_decode($_POST['cf7cw-tel-message-body']);
             $cf7cw['form_id'] = $form_id;
             $cf7cw['form_title'] = $form_title;
             $cf7cw['cf7cw_status'] = $cf7cw_status;
@@ -187,7 +186,7 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
 
         static function connect_tel_message_body()
         {
-            return '<strong>Form Title</strong>: [form-title] ' . "\n" . '<strong>Email</strong>: [your-email]' . "\n" . '<strong>Subject</strong>: [your-subject]' . "\n" . '<strong>Message</strong>:' . "\n" . '[your-message]' . "\n" . '--' . "\n" . 'This message was sent from a contact form on <strong>[_site_title]</strong> ([_site_url])';
+            return '<b>Form Title</b>: [form-title] ' . "\n" . '<b>Email</b>: [your-email]' . "\n" . '<b>Subject</b>: [your-subject]' . "\n" . '<b>Message</b>:' . "\n" . '[your-message]' . "\n" . '--' . "\n" . 'This message was sent from a contact form on <b>[_site_title]</b> ([_site_url])';
         }
 
         /** View full list section */
@@ -204,21 +203,21 @@ if (!class_exists('cf7cw_connect_tel_settings')) {
         }
 
         private function approved_html_list(){
-            $list = $this->tel_fns->get_chats();
+            $list = cf7cw_tel_functions::get_chats();
             if ( empty( $list) ) return array();
             
             foreach( $list as $id => $chat )				
-            echo vsprintf( $this->get_template( 'f_item' ), $this->tel_fns->get_listitem_data( $chat, 'active' ) );
+            echo vsprintf( $this->get_template( 'f_item' ), cf7cw_tel_functions::get_listitem_data( $chat, 'active' ) );
     
             return true;
         }
         
         private function pending_html_list() {
-            $data = $this->tel_fns->get_chats( 'pending' );
+            $data = cf7cw_tel_functions::get_chats( 'pending' );
             if ( empty( $data ) ) return false;
             
             foreach( $data as $id => $item ) :
-                echo vsprintf( $this->get_template( 'f_item' ), $this->tel_fns->get_listitem_data( $item ) );
+                echo vsprintf( $this->get_template( 'f_item' ), cf7cw_tel_functions::get_listitem_data( $item ) );
             endforeach;
             
             return true;

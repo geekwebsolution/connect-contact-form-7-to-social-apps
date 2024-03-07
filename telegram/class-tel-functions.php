@@ -16,10 +16,10 @@ if(!class_exists('cf7cw_tel_functions')) {
             $this->load_bot_token();
             $this->load_chats();
             
-            add_action( 'current_screen', array( $this, 'current_screen' ), 999 );
-            add_action( 'cf7cw_telegram_settings', array( $this, 'check_updates' ), 999 );
-            add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 999, 1 );
-            add_action( 'wpcf7_before_send_mail', array( $this, 'send' ), 99999, 3 );
+            add_action( 'current_screen', array( $this, 'current_screen' ), PHP_INT_MAX );
+            add_action( 'cf7cw_telegram_settings', array( $this, 'check_updates' ), PHP_INT_MAX );
+            add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), PHP_INT_MAX, 1 );
+            add_action( 'wpcf7_before_send_mail', array( $this, 'send' ), PHP_INT_MAX, 3 );
             add_action( 'wp_ajax_cf7cw_telegram', array( $this, 'ajax' ) );
         }
 
@@ -112,7 +112,7 @@ if(!class_exists('cf7cw_tel_functions')) {
         /**
          * Send telegram message if configuration matches
          */
-        public function send( $cf, & $abort, $instance ){
+        public function send( $cf, & $abort, $instance ) {
             $list = $this->get_chats();
             if ( empty( $list ) ) return;
             if ( $abort ) return;
@@ -201,8 +201,9 @@ if(!class_exists('cf7cw_tel_functions')) {
         public function get_chats( $status = 'active' ){
             $result = array();
             foreach ( $this->chats as $id => $chat ) :
-                if ( $status == $chat['status'] )
-                $result[ $id ] = $chat;
+                if ( $status == $chat['status'] ) {
+                    $result[ $id ] = $chat;
+                }
             endforeach;
             
             return $result;
@@ -233,7 +234,7 @@ if(!class_exists('cf7cw_tel_functions')) {
                     endif;
                 endforeach;
             
-                if ( false === strpos( $one->message->text, 'cf7_start' ) ) continue;
+                if ( false === strpos( $one->message->text, 'cf7cw_start' ) ) continue;
     
             endforeach;
             
