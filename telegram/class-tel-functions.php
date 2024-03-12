@@ -112,12 +112,13 @@ if(!class_exists('cf7cw_tel_functions')) {
         /**
          * Send telegram message if configuration matches
          */
-        public function send( $cf, & $abort, $instance ) {
+        public function send( $cf, & $abort, $instance ){
             $list = $this->get_chats();
             if ( empty( $list ) ) return;
             if ( $abort ) return;
             if ( apply_filters( 'cf7cw_skip_tg', false, $cf, $instance ) ) return;
             
+
             $form_id = $cf->id();
             $form_title = $cf->title();
             $cf7cw_tel_option = get_option( 'cf7cw_connect_tel_' . $form_id , $default = array() );
@@ -201,9 +202,8 @@ if(!class_exists('cf7cw_tel_functions')) {
         public function get_chats( $status = 'active' ){
             $result = array();
             foreach ( $this->chats as $id => $chat ) :
-                if ( $status == $chat['status'] ) {
-                    $result[ $id ] = $chat;
-                }
+                if ( $status == $chat['status'] )
+                $result[ $id ] = $chat;
             endforeach;
             
             return $result;
