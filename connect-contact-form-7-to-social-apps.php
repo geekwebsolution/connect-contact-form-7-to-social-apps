@@ -3,14 +3,14 @@
 Plugin Name: Connect Contact Form 7 to Social App
 Description: Send a message directly to your WhatsApp account through Contact Form 7 forms.
 Author: Geek Code Lab
-Version: 2.0
+Version: 2.1
 Author URI: https://geekcodelab.com/
 Text Domain : connect-contact-form-7-to-social-app
 */
 
 if (!defined('ABSPATH')) exit;
 
-define('CF7CW_PLUGIN_VERSION', 2.0);
+define('CF7CW_PLUGIN_VERSION', 2.1);
 define('CF7CW_PRO_PLUGIN_LINK', 'https://geekcodelab.com/wordpress-plugins/connect-contact-form-7-to-social-app-pro/');
 
 if (!defined('CF7CW_PLUGIN_DIR_PATH'))
@@ -35,8 +35,7 @@ function cf7cw_install_contact_form_7_admin_notice(){ ?>
 	<div class="error">
 		<p>
 			<?php
-			// translators: %s is the plugin name.
-			echo esc_html( sprintf( __( '%s is enabled but not effective. It requires Contact Form 7 in order to work.', 'connect-contact-form-7-to-social-app' ), 'Connect Contact Form 7 to Social App' ) );
+			echo esc_html__( sprintf( '%s is enabled but not effective. It requires Contact Form 7 in order to work.', 'Connect Contact Form 7 to Social App' ), 'connect-contact-form-7-to-social-app' );
 			?>
 		</p>
 	</div>
