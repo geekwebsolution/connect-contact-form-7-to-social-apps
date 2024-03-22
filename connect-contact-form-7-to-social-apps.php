@@ -35,8 +35,7 @@ function cf7cw_install_contact_form_7_admin_notice(){ ?>
 	<div class="error">
 		<p>
 			<?php
-			// translators: %s is the plugin name.
-			echo esc_html( sprintf( __( '%s is enabled but not effective. It requires Contact Form 7 in order to work.', 'connect-contact-form-7-to-social-app' ), 'Connect Contact Form 7 to Social App' ) );
+			echo esc_html__( sprintf( '%s is enabled but not effective. It requires Contact Form 7 in order to work.', 'Connect Contact Form 7 to Social App' ), 'connect-contact-form-7-to-social-app' );
 			?>
 		</p>
 	</div>
