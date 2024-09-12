@@ -6,11 +6,12 @@ Author: Geek Code Lab
 Version: 2.1
 Author URI: https://geekcodelab.com/
 Text Domain : connect-contact-form-7-to-social-app
+Requires Plugins: contact-form-7
 */
 
 if (!defined('ABSPATH')) exit;
 
-define('CF7CW_PLUGIN_VERSION', 2.1);
+define('CF7CW_PLUGIN_VERSION', '2.1' );
 define('CF7CW_PRO_PLUGIN_LINK', 'https://geekcodelab.com/wordpress-plugins/connect-contact-form-7-to-social-app-pro/');
 
 if (!defined('CF7CW_PLUGIN_DIR_PATH'))
@@ -18,29 +19,6 @@ if (!defined('CF7CW_PLUGIN_DIR_PATH'))
 
 if (!defined('CF7CW_PLUGIN_URL'))
 	define('CF7CW_PLUGIN_URL', plugins_url() . '/' . basename(dirname(__FILE__)));
-
-/**
- * Admin notice when Contact form 7 is not active
- */
-add_action( 'admin_init', 'cf7cw_plugin_load' );
-function cf7cw_plugin_load(){
-	if ( ! ( is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) ) {
-		add_action( 'admin_notices', 'cf7cw_install_contact_form_7_admin_notice' );
-		deactivate_plugins("connect-contact-form-7-to-social-apps/connect-contact-form-7-to-social-apps.php");
-		return;
-	}
-}
-
-function cf7cw_install_contact_form_7_admin_notice(){ ?>
-	<div class="error">
-		<p>
-			<?php
-			echo esc_html__( sprintf( '%s is enabled but not effective. It requires Contact Form 7 in order to work.', 'Connect Contact Form 7 to Social App' ), 'connect-contact-form-7-to-social-app' );
-			?>
-		</p>
-	</div>
-	<?php
-}
 
 register_activation_hook(__FILE__, 'cf7cw_plugin_active_notice');
 function cf7cw_plugin_active_notice()
@@ -61,12 +39,14 @@ function cf7cw_add_plugin_settings_link($links)
 		$pro_link = '<a href="' . CF7CW_PRO_PLUGIN_LINK . '" target="_blank" style="color:#46b450;font-weight: 600;">' . __('Premium Upgrade') . '</a>';
 		array_unshift($links, $pro_link);
 
-		$setting_link = '<a href="' . admin_url('admin.php?page=wpcf7') . '">' . __('Settings', 'connect-contact-form-7-to-social-app') . '</a>';
+		$setting_link = '<a href="' . admin_url('admin.php?page=connect-cf7cw') . '">' . __('Settings', 'connect-contact-form-7-to-social-app') . '</a>';
 		array_unshift($links, $setting_link);
 	}
 	return $links;
 }
 
-
-require_once(CF7CW_PLUGIN_DIR_PATH . 'functions.php');
-require_once(CF7CW_PLUGIN_DIR_PATH . 'class-admin.php');
+require_once(CF7CW_PLUGIN_DIR_PATH . 'includes/class-functions.php');
+require_once(CF7CW_PLUGIN_DIR_PATH . 'public/class-public.php');
+require_once(CF7CW_PLUGIN_DIR_PATH . 'admin/class-admin.php');
+require_once(CF7CW_PLUGIN_DIR_PATH . 'includes/customizer/customizer-library/customizer-library.php');
+require_once(CF7CW_PLUGIN_DIR_PATH . 'includes/customizer/styles.php');
