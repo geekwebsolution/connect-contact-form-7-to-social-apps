@@ -82,9 +82,15 @@ Extract the zip file and just drop the contents in the wp-content/plugins/ direc
 After active plugin go to Contact form 7-> Edit Form -> WhatsApp(tab)
 
 == Screenshots ==
-1. WhatsApp Setting.
-2. WhatsApp Message Preview
-3. WhatsApp Message Preview
+
+1. WhatsApp Setting
+2. Chat Widget Preview
+3. WhatsApp Info
+4. Customize Form
+5. Greetings
+6. Triggers & Targeting
+7. WhatsApp Message Preview
+8. WhatsApp Message Preview
 
 
 == Changelog ==

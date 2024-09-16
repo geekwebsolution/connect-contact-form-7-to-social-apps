@@ -51,11 +51,6 @@
   -webkit-tap-highlight-color: transparent !important;
 }
 
-html,
-body {
-  overflow-x: hidden !important;
-}
-
 .cf7cw-main-wrap {
   font-family: var(--cf7cw-primary-font);
   color: var(--cf7cw-black-color);
