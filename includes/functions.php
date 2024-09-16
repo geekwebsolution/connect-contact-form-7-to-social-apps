@@ -10,22 +10,17 @@ function cf7cw_defaults() {
 			'wh_number' => ''
 		),
 		'customize_form' => array(
-			'chat_widget_custom_icon' => '',
 			'chat_widget_icon_size' => 'medium', 
 			'chat_widget_icon_size_custom' => '80', 
 			'chat_widget_icon_position' => 'right',
 			'chat_widget_cta_switch' => 'on',
 			'chat_widget_cta_text' => 'Contact us',
-			'chat_widget_cta_text_color' => '#555555',
-			'chat_widget_cta_text_background' => '#FFFFFF',
 			'chat_widget_cta_text_size' => 'medium',
 			'chat_widget_cta_text_size_custom' => '20',
 			'chat_widget_contact_form_7' => '', 
 			'chat_widget_form_title' => 'Contact via WhatsApp',
 			'chat_widget_header_text' => '',
 			'chat_widget_footer_text' => '',
-			'chat_widget_form_style_text_color' => '#FFFFFF',
-			'chat_widget_form_style_background' => '#09816D',
 			'chat_widget_form_font_family' => 'Rubik',
 			'chat_widget_form_behaviour_open_by_default' => '',
 			'chat_widget_form_behaviour_close_on_submit' => 'on'
@@ -50,7 +45,6 @@ function cf7cw_defaults() {
 			'wave_greetings_show_main_content' => 'on',
 			'wave_greetings_style_1_custom_icon' => '',
 			'wave_greetings_style_1_icon_position' => 'before_heading',
-			'wave_greetings_style_2_icon_position' => 'wave_greetings_style_2_icon_position_before_cta',
 			'wave_greetings_style_1_greeting_heading' => 'What are you looking for?',
 			'wave_greetings_style_1_heading_size' => 'medium',
 			'wave_greetings_style_1_heading_custom_size' => '16',
@@ -62,24 +56,7 @@ function cf7cw_defaults() {
 			'wave_greetings_style_1_cta_icon' => '',
 			'wave_greetings_style_1_cta_text_color' => '#2F80ED',
 			'wave_greetings_style_1_cta_background' => '#F5F7F8',
-			'wave_greetings_style_2_show_greeting_cta' => 'on',
-			'wave_greetings_style_2_greeting_heading' => 'What are you looking for?',
-			'wave_greetings_style_2_heading_size' => 'medium',
-			'wave_greetings_style_2_custom_heading_size' => '',
-			'wave_greetings_style_2_message' => 'Feel free to ask your questions here. We are always ready to assist you all the time whenever you need',
-			'wave_greetings_style_2_message_size' => 'medium',
-			'wave_greetings_style_2_message_custom_size' => '',
-			
-			'wave_greetings_style_1_heading_color' => '#4F4F4F',
-			'wave_greetings_style_1_message_color' => '#4F4F4F',
-			'wave_greetings_style_1_background_color' => '#FFFFFF',
 			'wave_greetings_style_1_font_family' => 'Rubik',
-
-			'wave_greetings_style_2_heading_color' => '#2F80ED',
-			'wave_greetings_style_2_message_color' => '#4F4F4F',
-			'wave_greetings_style_2_background_color' => '#F5F7F8',
-			'wave_greetings_style_2_font_family' => 'Rubik',
-			
 			'greeting_behavior_on_click_action' => 'load_the_selected_form'
 		),
 		'triggers-targeting' => array(

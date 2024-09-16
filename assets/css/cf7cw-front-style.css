@@ -115,16 +115,11 @@
     --cf7cw-transition: 0.3s;
 }
 
-* {
+.cf7cw-chat-widgets * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
     -webkit-tap-highlight-color: transparent !important;
-}
-
-html,
-body {
-    overflow-x: hidden !important;
+    box-sizing: border-box;
 }
 
 .cf7cw-chat-widget {
@@ -192,7 +187,6 @@ body {
 /* Contact Form Start */
 
 .cf7cw-chat-widget-form {
-    /* position: relative; */
     display: flex;
     flex-direction: column;
     border-radius: 6px;
@@ -203,9 +197,6 @@ body {
     height: auto;
     z-index: 10;
     top: 50px;
-    /* opacity: 0;
-    visibility: hidden;
-    transition: var(--cf7cw-transition); */
 }
 
 .cf7cw-chat-widget-form-title {
@@ -253,15 +244,33 @@ body {
     flex-direction: column;
     padding: 20px;
     gap: 16px;
+    font-size: 16px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .cf7cw-chat-widget-header-text,
-.cf7cw-chat-widget-footer-text{
+.cf7cw-chat-widget-footer-text {
     font-size: 16px;
 }
 
 .cf7cw-chat-widget-form-body .wpcf7-form > p {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
+    position: relative;
+    font-family: inherit;
+}
+
+.cf7cw-chat-widget-form-body .wpcf7-form > p br {
+    display: none;
+}
+
+.cf7cw-chat-widget .wpcf7-form > p > label {
+    margin-bottom: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: inherit;
+    font-weight: 600;
 }
 
 .cf7cw-chat-widget .wpcf7-form-control-wrap {
@@ -276,14 +285,15 @@ body {
     display: none !important;
 }
 
-.cf7cw-chat-widget .cf7cw-form-input {
+.cf7cw-chat-widget .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-checkbox):not(.wpcf7-radio) {
     all: unset;
+    cursor: text;
     display: block;
     width: 100%;
     height: 40px;
     min-height: unset;
     max-width: 100%;
-    padding: 5px 20px;
+    padding: 8px 20px;
     background: var(--cf7cw-white-color);
     border: 1px solid rgba(var(--cf7cw-black-color-rgb), 0.15) !important;
     border-radius: 6px !important;
@@ -294,51 +304,35 @@ body {
     box-shadow: none !important;
     transition: var(--cf7cw-transition);
     box-sizing: border-box;
+    font-weight: 400;
 }
 
-.cf7cw-chat-widget .cf7cw-form-input:focus {
+.cf7cw-chat-widget .wpcf7-form-control:focus {
     border-color: rgba(var(--cf7cw-black-color-rgb), 0.5) !important;
 }
 
-.cf7cw-chat-widget textarea.cf7cw-form-input {
-    height: 120px;
+.cf7cw-chat-widget textarea.wpcf7-form-control.wpcf7-textarea {
+    height: 120px !important;
     resize: none !important;
     display: block !important;
     min-height: unset !important;
-    padding: 10px 20px;
-    word-wrap: break-word;
+    padding: 10px 20px !important;
+    word-wrap: break-word !important;
 }
 
-.cf7cw-chat-widget select.cf7cw-form-input {
-    max-width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 5px 20px;
+.cf7cw-chat-widget select.wpcf7-form-control {
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 5px 40px 5px 20px !important;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1rem top 50% !important;
+    background-size: 1rem auto !important;
 }
 
-.cf7cw-chat-widget .cf7cw-select-wp {
-    position: relative;
-}
-
-.cf7cw-chat-widget .cf7cw-select-wp:before {
-    content: "" !important;
-    position: absolute;
-    display: block;
-    top: 50%;
-    right: 16px;
-    transform: translate(0, -50%);
-    -webkit-mask-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E");
-    -webkit-mask-position: center;
-    -webkit-mask-size: 100%;
-    -webkit-mask-repeat: no-repeat;
-    width: 1em;
-    height: 1em;
-    font-size: 16px;
-    background: rgba(var(--cf7cw-black-color-rgb), 0.15);
-    z-index: 2;
-}
-
-.cf7cw-chat-widget .wpcf7-form-control.wpcf7-radio {
+.cf7cw-chat-widget .wpcf7-form-control.wpcf7-radio,
+.cf7cw-chat-widget .wpcf7-form-control.wpcf7-checkbox {
     display: flex;
     font-size: 16px;
     line-height: 1.2;
@@ -346,11 +340,13 @@ body {
     gap: 16px;
 }
 
-.cf7cw-chat-widget .wpcf7-form-control.wpcf7-radio .wpcf7-list-item {
+.cf7cw-chat-widget .wpcf7-form-control.wpcf7-radio .wpcf7-list-item,
+.cf7cw-chat-widget .wpcf7-form-control.wpcf7-checkbox .wpcf7-list-item {
     margin: 0;
 }
 
-.cf7cw-chat-widget .wpcf7-radio input[type="radio"] {
+.cf7cw-chat-widget .wpcf7-radio input[type="radio"],
+.cf7cw-chat-widget .wpcf7-checkbox input[type="checkbox"] {
     --size: 16px;
     --bg-opacity: 0.2;
     all: unset;
@@ -366,7 +362,8 @@ body {
     position: relative;
 }
 
-.cf7cw-chat-widget .wpcf7-radio input[type="radio"]::before {
+.cf7cw-chat-widget .wpcf7-radio input[type="radio"]::before,
+.cf7cw-chat-widget .wpcf7-checkbox input[type="checkbox"]::before {
     all: unset;
     --size: 15px;
     --bg-opacity: 0.8;
@@ -387,20 +384,23 @@ body {
     cursor: pointer;
 }
 
-.cf7cw-chat-widget .wpcf7-radio input[type="radio"]:hover::before {
+.cf7cw-chat-widget .wpcf7-radio input[type="radio"]:hover::before,
+.cf7cw-chat-widget .wpcf7-checkbox input[type="checkbox"]:hover::before {
     --size: 10px;
     opacity: 1;
     visibility: visible;
 }
 
-.cf7cw-chat-widget .wpcf7-radio input[type="radio"]:checked::before {
+.cf7cw-chat-widget .wpcf7-radio input[type="radio"]:checked::before,
+.cf7cw-chat-widget .wpcf7-checkbox input[type="checkbox"]:checked::before {
     --bg-opacity: 1;
     --size: 10px;
     opacity: 1;
     visibility: visible;
 }
 
-.cf7cw-chat-widget .wpcf7-radio label {
+.cf7cw-chat-widget .wpcf7-radio label,
+.cf7cw-chat-widget .wpcf7-checkbox label {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -412,9 +412,20 @@ body {
     content: none !important;
 }
 
-/* .cf7cw-chat-widget .cf7cw-form-submit {
-    position: relative;
-} */
+.cf7cw-chat-widget .wpcf7-checkbox input[type="checkbox"] {
+    border-radius: 3px;
+}
+
+.cf7cw-chat-widget .wpcf7-checkbox input[type="checkbox"]::before {
+    width: 9px;
+    height: 4px;
+    background: none;
+    border-width: 0px 0px 2px 2px;
+    border-style: solid;
+    border-radius: 0;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    top: 41%;
+}
 
 .cf7cw-chat-widget .wpcf7-spinner {
     position: absolute;
@@ -424,7 +435,9 @@ body {
     transform: translate(0, -50%);
 }
 
-.cf7cw-sec-btn, input[type="submit"], button[type="submit"] {
+.cf7cw-chat-widget .cf7cw-sec-btn,
+.cf7cw-chat-widget input[type="submit"],
+.cf7cw-chat-widget button[type="submit"] {
     width: 100%;
     height: 44px;
     display: flex;
@@ -446,13 +459,17 @@ body {
     font-size: 16px;
 }
 
-.cf7cw-sec-btn:hover {
+.cf7cw-sec-btn:hover,
+.cf7cw-chat-widget input[type="submit"]:hover,
+.cf7cw-chat-widget button[type="submit"]:hover {
     background: var(--cf7cw-whatsapp-color1);
     border-color: var(--cf7cw-whatsapp-color1);
     color: var(--cf7cw-white-color);
 }
 
-.cf7cw-sec-btn:focus {
+.cf7cw-sec-btn:focus,
+.cf7cw-chat-widget input[type="submit"]:focus,
+.cf7cw-chat-widget button[type="submit"]:focus {
     background: var(--cf7cw-whatsapp-color1);
     border-color: var(--cf7cw-whatsapp-color1);
     color: var(--cf7cw-white-color);
@@ -521,18 +538,6 @@ body {
     padding: 0 !important;
 }
 
-.cf7cw-chat-widget-greetings-simple-cloud {
-    position: absolute;
-    bottom: 96%;
-    left: max(4vh, 20%) !important;
-    color: var(--cf7cw-white-color);
-    z-index: -1;
-}
-
-.cf7cw-chat-widget-greetings-simple-cloud svg {
-    color: currentcolor;
-}
-
 /* Greetings Simple End */
 
 /* Greetings Wave Start */
@@ -560,15 +565,13 @@ body {
     opacity: 1;
 }
 
-.cf7cw-chat-widget-greetings-wave-1-icon,
-.cf7cw-chat-widget-greetings-wave-2-icon {
+.cf7cw-chat-widget-greetings-wave-1-icon {
     margin: 40px auto;
     width: 100px;
     text-align: center;
 }
 
-.cf7cw-chat-widget-greetings-wave-1-icon img,
-.cf7cw-chat-widget-greetings-wave-2-icon img {
+.cf7cw-chat-widget-greetings-wave-1-icon img {
     display: inline-block;
 }
 
@@ -628,94 +631,58 @@ body {
     font-weight: 600;
 }
 
-.cf7cw-chat-widget-greetings-wave-2-content {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    border-radius: 24px;
-    border-top-left-radius: 0;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
-    padding: 16px;
-    background: rgba(var(--cf7cw-primary-color-rgb), 0.08);
-}
 
-.cf7cw-chat-widget-greetings-wave-2-content .cf7cw-chat-widget-greetings-wave-title {
-    color: var(--cf7cw-primary-color);
-}
-
-/* Widget Active Start */
-
-/* .cf7cw-chat-widget-active .cf7cw-chat-widget-form,
-.cf7cw-chat-widget-active .cf7cw-chat-widget-greetings-simple,
-.cf7cw-chat-widget-active .cf7cw-chat-widget-greetings-wave {
-    top: 0;
-    opacity: 1;
-    visibility: visible;
-} */
-
-/* .cf7cw-chat-widget-active {
-    animation: form_slide .2s ease !important;
-}
-
-@keyframes form_slide {
-    0% {
-        opacity: 0;
-        transform: scale(.8) translate(5px, 20px);
-    }
-
-    60% {
-        opacity: 1;
-        transform: scale(1.1) translate(0);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1) translate(0);
-    }
-
-} */
-
-/* Widget Active End */
-
-
-.order-1 {
+.cf7cw-chat-widget .order-1 {
     order: 1;
 }
 
-.order-2 {
+.cf7cw-chat-widget .order-2 {
     order: 2;
 }
 
-.order-3 {
+.cf7cw-chat-widget .order-3 {
     order: 3;
 }
 
-.order-4 {
+.cf7cw-chat-widget .order-4 {
     order: 4;
 }
 
-.order-5 {
+.cf7cw-chat-widget .order-5 {
     order: 5;
 }
 
-.order-6 {
+.cf7cw-chat-widget .order-6 {
     order: 6;
 }
 
-.order-7 {
+.cf7cw-chat-widget .order-7 {
     order: 7;
 }
 
-.order-8 {
+.cf7cw-chat-widget .order-8 {
     order: 8;
 }
 
-.order-9 {
+.cf7cw-chat-widget .order-9 {
     order: 9;
 }
 
-.order-10 {
+.cf7cw-chat-widget .order-10 {
     order: 10;
+}
+
+@media (max-width: 767px) {
+    .cf7cw-chat-widget-form {
+        width: 290px;
+    }
+
+    .cf7cw-chat-widget {
+        width: 290px;
+    }
+
+    .cf7cw-chat-widget-greetings-simple {
+        width: 100%;
+        max-width: 100%;
+    }
 }

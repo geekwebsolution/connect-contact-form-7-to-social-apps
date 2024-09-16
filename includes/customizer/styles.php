@@ -17,406 +17,209 @@ if ( !function_exists( 'connect_cf7_to_social_apps_style_build' ) && class_exist
         $cf7cw_defaults = cf7cw_defaults();
         $cf7cw_options  = get_option('cf7cw_options');
 
-        /** Customize Icon CSS */
+        $chat_widget_status  = isset($cf7cw_options['triggers-targeting']['triggers_activate_cf7_form_chat_widget']) ? $cf7cw_options['triggers-targeting']['triggers_activate_cf7_form_chat_widget'] : "";
 
-        $customize_form_key = "customize_form";
-        $greetings_key = "greetings";
+        if(isset($chat_widget_status) && $chat_widget_status == "on") {
 
-        // Icon Size
-        $cwis_key = "chat_widget_icon_size";
+            /** Customize Icon CSS */
 
-        if(isset($cf7cw_options[$customize_form_key][$cwis_key])) {
-            $cwisc_key = "chat_widget_icon_size_custom";
-            
-            $icon_size = array( 
-                "small" => 46, 
-                "medium" => 56, 
-                "large" => 66, 
-                "custom" => (isset($cf7cw_options[$customize_form_key][$cwisc_key]) && !empty($cf7cw_options[$customize_form_key][$cwisc_key])) ? $cf7cw_options[$customize_form_key][$cwisc_key] : $cf7cw_defaults[$customize_form_key][$cwisc_key] 
-            );
-            $chat_widget_icon_size = $cf7cw_options[$customize_form_key][$cwis_key];
+            $customize_form_key = "customize_form";
+            $greetings_key = "greetings";
 
-            if(isset($icon_size[$chat_widget_icon_size])) {
-                connect_cf7_to_social_apps_library_Styles()->add( array(
-                    'selectors'    => array( '.cf7cw-chat-widget-handle-btn-icon' ),
-                    'declarations' => array( 'font-size' => intval($icon_size[$chat_widget_icon_size]) . 'px' ),
-                ) );
+            // Icon Size
+            $cwis_key = "chat_widget_icon_size";
+
+            if(isset($cf7cw_options[$customize_form_key][$cwis_key])) {
+                $cwisc_key = "chat_widget_icon_size_custom";
+                
+                $icon_size = array( 
+                    "small" => 46, 
+                    "medium" => 56, 
+                    "large" => 66, 
+                    "custom" => (isset($cf7cw_options[$customize_form_key][$cwisc_key]) && !empty($cf7cw_options[$customize_form_key][$cwisc_key])) ? $cf7cw_options[$customize_form_key][$cwisc_key] : $cf7cw_defaults[$customize_form_key][$cwisc_key] 
+                );
+                $chat_widget_icon_size = $cf7cw_options[$customize_form_key][$cwis_key];
+
+                if(isset($icon_size[$chat_widget_icon_size])) {
+                    connect_cf7_to_social_apps_library_Styles()->add( array(
+                        'selectors'    => array( '.cf7cw-chat-widget-handle-btn-icon' ),
+                        'declarations' => array( 'font-size' => intval($icon_size[$chat_widget_icon_size]) . 'px' ),
+                    ) );
+                }
             }
-        }
 
-        /** Call to action CSS */
+            /** Call to action CSS */
+            $chat_widget_cta_switch = (isset($cf7cw_options['customize_form']['chat_widget_cta_switch'])) ? $cf7cw_options['customize_form']['chat_widget_cta_switch'] : "";
+            if (isset($chat_widget_cta_switch) && $chat_widget_cta_switch == 'on') {
+                // Call to action style
 
-        // Call to action style
+                // Text Size
+                $cwcts_key = "chat_widget_cta_text_size";
 
-        // Text Color
-        $cwctc_key = "chat_widget_cta_text_color";
-        
-        if(isset($cf7cw_options[$customize_form_key][$cwctc_key])) {
-            $cwctc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$customize_form_key][$cwctc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-handle-btn-text' ),
-                'declarations' => array( 'color' => $cwctc_btn_txtcolor ),
-            ) );
-        }
+                if(isset($cf7cw_options[$customize_form_key][$cwcts_key])) {
+                    $cwctsc_key = "chat_widget_cta_text_size_custom";
+                    
+                    $text_size = array( 
+                        "small" => 14, 
+                        "medium" => 18, 
+                        "large" => 20, 
+                        "custom" => (isset($cf7cw_options[$customize_form_key][$cwctsc_key]) && !empty($cf7cw_options[$customize_form_key][$cwctsc_key])) ? $cf7cw_options[$customize_form_key][$cwctsc_key] : $cf7cw_defaults[$customize_form_key][$cwctsc_key] 
+                    );
+                    $chat_widget_cta_text_size = $cf7cw_options[$customize_form_key][$cwcts_key];
 
-        // Background Color
-        $cwcbgc_key = "chat_widget_cta_text_background";
+                    if(isset($text_size[$chat_widget_cta_text_size])) {
+                        connect_cf7_to_social_apps_library_Styles()->add( array(
+                            'selectors'    => array( '.cf7cw-chat-widget-handle-btn-text' ),
+                            'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
+                        ) );
+                    }
+                }
+            }            
 
-        if(isset($cf7cw_options[$customize_form_key][$cwcbgc_key])) {
-            $cwcbgc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$customize_form_key][$cwcbgc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-handle-btn-text' ),
-                'declarations' => array( 'background-color' => $cwcbgc_btn_txtcolor ),
-            ) );
-        }
-
-        // Text Size
-        $cwcts_key = "chat_widget_cta_text_size";
-
-        if(isset($cf7cw_options[$customize_form_key][$cwcts_key])) {
-            $cwctsc_key = "chat_widget_cta_text_size_custom";
+            // Customize Form
+            $chat_widget_contact_form_7 = (isset($cf7cw_options['customize_form']['chat_widget_contact_form_7'])) ? $cf7cw_options['customize_form']['chat_widget_contact_form_7'] : "";
             
-            $text_size = array( 
-                "small" => 14, 
-                "medium" => 18, 
-                "large" => 20, 
-                "custom" => (isset($cf7cw_options[$customize_form_key][$cwctsc_key]) && !empty($cf7cw_options[$customize_form_key][$cwctsc_key])) ? $cf7cw_options[$customize_form_key][$cwctsc_key] : $cf7cw_defaults[$customize_form_key][$cwctsc_key] 
-            );
-            $chat_widget_cta_text_size = $cf7cw_options[$customize_form_key][$cwcts_key];
+            if (isset($chat_widget_contact_form_7) && !empty($chat_widget_contact_form_7)) {
 
-            if(isset($text_size[$chat_widget_cta_text_size])) {
-                connect_cf7_to_social_apps_library_Styles()->add( array(
-                    'selectors'    => array( '.cf7cw-chat-widget-handle-btn-text' ),
-                    'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
-                ) );
+                // Form Style Font Family
+                $cwfff_key = "chat_widget_form_font_family";
+
+                if(isset($cf7cw_options[$customize_form_key][$cwfff_key])) {
+                    connect_cf7_to_social_apps_library_Styles()->add( array(
+                        'selectors'    => array( '.cf7cw-chat-widget-form' ),
+                        'declarations' => array( '--cf7cw-primary-font' => $cf7cw_options[$customize_form_key][$cwfff_key] ),
+                    ) );
+                }
             }
-        }
 
-        // Customize Form
+            /** Greetings CSS */
 
-        // Form Style Text Color
-        $cwfstc_key = "chat_widget_form_style_text_color";
-        
-        if(isset($cf7cw_options[$customize_form_key][$cwfstc_key])) {
-            $cwfstc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$customize_form_key][$cwfstc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( ':root' ),
-                'declarations' => array( '--cf7cw-form-text-color' => $cwfstc_btn_txtcolor ),
-            ) );
-        }
+            // Display Greetings Popup
+            $display_greeting_popup = (isset($cf7cw_options['greetings']['display_greeting_popup'])) ? $cf7cw_options['greetings']['display_greeting_popup'] : "";
+            $choose_greetings_template = (isset($cf7cw_options['greetings']['choose_greetings_template'])) ? $cf7cw_options['greetings']['choose_greetings_template'] : "";
+            $simple_greetings_template_type = (isset($cf7cw_options['greetings']['choose_simple_greetings_template_type'])) ? $cf7cw_options['greetings']['choose_simple_greetings_template_type'] : "";
+            $wave_greetings_template_type = (isset($cf7cw_options['greetings']['choose_wave_greetings_template_type'])) ? $cf7cw_options['greetings']['choose_wave_greetings_template_type'] : "";
 
-        // Form Style Background Color
-        $cwfsbgc_key = "chat_widget_form_style_background";
+            if (isset($display_greeting_popup) && $display_greeting_popup == "on") {
 
-        if(isset($cf7cw_options[$customize_form_key][$cwfsbgc_key])) {
-            $cwfsbgc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$customize_form_key][$cwfsbgc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( ':root' ),
-                'declarations' => array( '--cf7cw-form-bg-color' => $cwfsbgc_btn_txtcolor ),
-            ) );
-        }
+                if(isset($choose_greetings_template) && $choose_greetings_template == "simple") {
+                    // Simple Customize Greetings Heading Text Size
+                    $sghs_key = "simple_greetings_heading_size";
 
-        // Form Style Font Family
-        $cwfff_key = "chat_widget_form_font_family";
+                    if(isset($cf7cw_options[$greetings_key][$sghs_key])) {
+                        $sghcs_key = "simple_greetings_heading_custom_size";
+                        
+                        $text_size = array( 
+                            "small" => 12, 
+                            "medium" => 14,
+                            "large" => 16, 
+                            "custom" => (isset($cf7cw_options[$greetings_key][$sghcs_key]) && !empty($cf7cw_options[$greetings_key][$sghcs_key])) ? $cf7cw_options[$greetings_key][$sghcs_key] : $cf7cw_defaults[$greetings_key][$sghcs_key] 
+                        );
+                        $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$sghs_key];
 
-        if(isset($cf7cw_options[$customize_form_key][$cwfff_key])) {
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-form' ),
-                'declarations' => array( 'font-family' => $cf7cw_options[$customize_form_key][$cwfff_key] ),
-            ) );
-        }
+                        if(isset($text_size[$chat_widget_cta_text_size])) {
+                            connect_cf7_to_social_apps_library_Styles()->add( array(
+                                'selectors'    => array( '.cf7cw-chat-widget-greetings-simple-title' ),
+                                'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
+                            ) );
+                        }
+                    }
 
-        /** Greetings CSS */
+                    // Simple Customize Greetings Message Text Size
+                    $sgms_key = "simple_greetings_message_size";
 
-        // Simple Customize Greetings Heading Text Size
-        $sghs_key = "simple_greetings_heading_size";
+                    if(isset($cf7cw_options[$greetings_key][$sgms_key])) {
+                        $sgmcs_key = "simple_greetings_message_custom_size";
+                        
+                        $text_size = array( 
+                            "small" => 12, 
+                            "medium" => 14, 
+                            "large" => 16, 
+                            "custom" => (isset($cf7cw_options[$greetings_key][$sgmcs_key]) && !empty($cf7cw_options[$greetings_key][$sgmcs_key])) ? $cf7cw_options[$greetings_key][$sgmcs_key] : $cf7cw_defaults[$greetings_key][$sgmcs_key] 
+                        );
+                        $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$sgms_key];
 
-        if(isset($cf7cw_options[$greetings_key][$sghs_key])) {
-            $sghcs_key = "simple_greetings_heading_custom_size";
-            
-            $text_size = array( 
-                "small" => 12, 
-                "medium" => 14,
-                "large" => 16, 
-                "custom" => (isset($cf7cw_options[$greetings_key][$sghcs_key]) && !empty($cf7cw_options[$greetings_key][$sghcs_key])) ? $cf7cw_options[$greetings_key][$sghcs_key] : $cf7cw_defaults[$greetings_key][$sghcs_key] 
-            );
-            $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$sghs_key];
+                        if(isset($text_size[$chat_widget_cta_text_size])) {
+                            connect_cf7_to_social_apps_library_Styles()->add( array(
+                                'selectors'    => array( '.cf7cw-chat-widget-greetings-simple-text' ),
+                                'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
+                            ) );
+                        }
+                    }
 
-            if(isset($text_size[$chat_widget_cta_text_size])) {
-                connect_cf7_to_social_apps_library_Styles()->add( array(
-                    'selectors'    => array( '.cf7cw-chat-widget-greetings-simple-title' ),
-                    'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
-                ) );
+                    /** Simple Greeting Template Colors */
+
+                    // Font Family
+                    $sgs1ff_key = "simple_greetings_style_1_font_family";
+
+                    if(isset($cf7cw_options[$greetings_key][$sgs1ff_key])) {
+                        connect_cf7_to_social_apps_library_Styles()->add( array(
+                            'selectors'    => array( '.cf7cw-chat-widget-greetings' ),
+                            'declarations' => array( '--cf7cw-primary-font' => $cf7cw_options[$greetings_key][$sgs1ff_key] ),
+                        ) );
+                    }
+                }
+
+                if(isset($choose_greetings_template) && $choose_greetings_template == "wave" && $wave_greetings_template_type == "choose_wave_greetings_template_type_style_1") {
+
+                    // Wave Style 1 Greetings Heading Text Size
+                    $wgs1hsl_key = "wave_greetings_style_1_heading_size_large";
+
+                    if(isset($cf7cw_options[$greetings_key][$wgs1hsl_key])) {
+                        $wgs1hcs_key = "wave_greetings_style_1_heading_custom_size";
+                        
+                        $text_size = array( 
+                            "small" => 12, 
+                            "medium" => 14, 
+                            "large" => 16, 
+                            "custom" => (isset($cf7cw_options[$greetings_key][$wgs1hcs_key]) && !empty($cf7cw_options[$greetings_key][$wgs1hcs_key])) ? $cf7cw_options[$greetings_key][$wgs1hcs_key] : $cf7cw_defaults[$greetings_key][$wgs1hcs_key] 
+                        );
+                        $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$wgs1hsl_key];
+
+                        if(isset($text_size[$chat_widget_cta_text_size])) {
+                            connect_cf7_to_social_apps_library_Styles()->add( array(
+                                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave .cf7cw-chat-widget-greetings-wave-title' ),
+                                'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
+                            ) );
+                        }
+                    }
+
+                    // Wave Style 1 Greetings Message Text Size
+                    $wgs1msl_key = "wave_greetings_style_1_message_size";
+
+                    if(isset($cf7cw_options[$greetings_key][$wgs1msl_key])) {
+                        $wgs1mcs_key = "wave_greetings_style_1_message_custom_size";
+                        
+                        $text_size = array( 
+                            "small" => 12, 
+                            "medium" => 14, 
+                            "large" => 16, 
+                            "custom" => (isset($cf7cw_options[$greetings_key][$wgs1mcs_key]) && !empty($cf7cw_options[$greetings_key][$wgs1mcs_key])) ? $cf7cw_options[$greetings_key][$wgs1mcs_key] : $cf7cw_defaults[$greetings_key][$wgs1mcs_key] 
+                        );
+                        $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$wgs1msl_key];
+
+                        if(isset($text_size[$chat_widget_cta_text_size])) {
+                            connect_cf7_to_social_apps_library_Styles()->add( array(
+                                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave .cf7cw-chat-widget-greetings-wave-text' ),
+                                'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
+                            ) );
+                        }
+                    }
+
+                    // Wave Style 1 Greetings CTA Style
+                    /** Simple Greeting Template Colors */
+
+                    // Font Family
+                    $wgs1ff_key = "wave_greetings_style_1_font_family";
+
+                    if(isset($cf7cw_options[$greetings_key][$wgs1ff_key])) {
+                        connect_cf7_to_social_apps_library_Styles()->add( array(
+                            'selectors'    => array( '.cf7cw-chat-widget-greetings' ),
+                            'declarations' => array( '--cf7cw-primary-font' => $cf7cw_options[$greetings_key][$wgs1ff_key] ),
+                        ) );
+                    }
+                }
             }
-        }
-
-        // Simple Customize Greetings Message Text Size
-        $sgms_key = "simple_greetings_message_size";
-
-        if(isset($cf7cw_options[$greetings_key][$sgms_key])) {
-            $sgmcs_key = "simple_greetings_message_custom_size";
-            
-            $text_size = array( 
-                "small" => 12, 
-                "medium" => 14, 
-                "large" => 16, 
-                "custom" => (isset($cf7cw_options[$greetings_key][$sgmcs_key]) && !empty($cf7cw_options[$greetings_key][$sgmcs_key])) ? $cf7cw_options[$greetings_key][$sgmcs_key] : $cf7cw_defaults[$greetings_key][$sgmcs_key] 
-            );
-            $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$sgms_key];
-
-            if(isset($text_size[$chat_widget_cta_text_size])) {
-                connect_cf7_to_social_apps_library_Styles()->add( array(
-                    'selectors'    => array( '.cf7cw-chat-widget-greetings-simple-text' ),
-                    'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
-                ) );
-            }
-        }
-
-        /** Simple Greeting Template Colors */
-
-        // Text Color
-        $sgs1hc_key = "simple_greetings_style_1_heading_color";
-        
-        if(isset($cf7cw_options[$greetings_key][$sgs1hc_key])) {
-            $sgs1hc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$sgs1hc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-simple-title' ),
-                'declarations' => array( 'color' => $sgs1hc_btn_txtcolor ),
-            ) );
-        }
-
-        // Message Color
-        $sgs1mc_key = "simple_greetings_style_1_message_color";
-
-        if(isset($cf7cw_options[$greetings_key][$sgs1mc_key])) {
-            $sgs1mc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$sgs1mc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-simple-text' ),
-                'declarations' => array( 'color' => $sgs1mc_btn_txtcolor ),
-            ) );
-        }
-
-        // Background Color
-        $sgs1bgc_key = "simple_greetings_style_1_background_color";
-
-        if(isset($cf7cw_options[$greetings_key][$sgs1bgc_key])) {
-            $sgs1bgc_bg_color = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$sgs1bgc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-simple' ),
-                'declarations' => array( 'background' => $sgs1bgc_bg_color ),
-            ) );
-        }
-
-        // Font Family
-        $sgs1ff_key = "simple_greetings_style_1_font_family";
-
-        if(isset($cf7cw_options[$greetings_key][$sgs1ff_key])) {
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-simple' ),
-                'declarations' => array( 'font-family' => $cf7cw_options[$greetings_key][$sgs1ff_key] ),
-            ) );
-        }
-
-
-        // Wave Style 1 Greetings Heading Text Size
-        $wgs1hsl_key = "wave_greetings_style_1_heading_size_large";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs1hsl_key])) {
-            $wgs1hcs_key = "wave_greetings_style_1_heading_custom_size";
-            
-            $text_size = array( 
-                "small" => 12, 
-                "medium" => 14, 
-                "large" => 16, 
-                "custom" => (isset($cf7cw_options[$greetings_key][$wgs1hcs_key]) && !empty($cf7cw_options[$greetings_key][$wgs1hcs_key])) ? $cf7cw_options[$greetings_key][$wgs1hcs_key] : $cf7cw_defaults[$greetings_key][$wgs1hcs_key] 
-            );
-            $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$wgs1hsl_key];
-
-            if(isset($text_size[$chat_widget_cta_text_size])) {
-                connect_cf7_to_social_apps_library_Styles()->add( array(
-                    'selectors'    => array( '.cf7cw-chat-widget-greetings-wave .cf7cw-chat-widget-greetings-wave-title' ),
-                    'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
-                ) );
-            }
-        }
-
-        // Wave Style 1 Greetings Message Text Size
-        $wgs1msl_key = "wave_greetings_style_1_message_size";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs1msl_key])) {
-            $wgs1mcs_key = "wave_greetings_style_1_message_custom_size";
-            
-            $text_size = array( 
-                "small" => 12, 
-                "medium" => 14, 
-                "large" => 16, 
-                "custom" => (isset($cf7cw_options[$greetings_key][$wgs1mcs_key]) && !empty($cf7cw_options[$greetings_key][$wgs1mcs_key])) ? $cf7cw_options[$greetings_key][$wgs1mcs_key] : $cf7cw_defaults[$greetings_key][$wgs1mcs_key] 
-            );
-            $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$wgs1msl_key];
-
-            if(isset($text_size[$chat_widget_cta_text_size])) {
-                connect_cf7_to_social_apps_library_Styles()->add( array(
-                    'selectors'    => array( '.cf7cw-chat-widget-greetings-wave .cf7cw-chat-widget-greetings-wave-text' ),
-                    'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
-                ) );
-            }
-        }
-
-        // Wave Style 1 Greetings CTA Style
-        // CTA Text Color
-        $wgs1ctc_key = "wave_greetings_style_1_cta_text_color";
-        
-        if(isset($cf7cw_options[$greetings_key][$wgs1ctc_key])) {
-            $wgs1ctc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$wgs1ctc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave-cta' ),
-                'declarations' => array( 'color' => $wgs1ctc_btn_txtcolor ),
-            ) );
-        }
-
-        // CTA Background Color
-        $wgs1cbg_key = "wave_greetings_style_1_cta_background";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs1cbg_key])) {
-            $wgs1cbg_bg_color = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$wgs1cbg_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave-cta' ),
-                'declarations' => array( 'background' => $wgs1cbg_bg_color ),
-            ) );
-        }
-
-        /** Simple Greeting Template Colors */
-
-        // Text Color
-        $wgs1hc_key = "wave_greetings_style_1_heading_color";
-        
-        if(isset($cf7cw_options[$greetings_key][$wgs1hc_key])) {
-            $wgs1hc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$wgs1hc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave .cf7cw-chat-widget-greetings-wave-title' ),
-                'declarations' => array( 'color' => $wgs1hc_btn_txtcolor ),
-            ) );
-        }
-
-        // Message Color
-        $wgs1mc_key = "wave_greetings_style_1_message_color";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs1mc_key])) {
-            $wgs1mc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$wgs1mc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave .cf7cw-chat-widget-greetings-wave-text' ),
-                'declarations' => array( 'color' => $wgs1mc_btn_txtcolor ),
-            ) );
-        }
-
-        // Background Color
-        $wgs1bgc_key = "wave_greetings_style_1_background_color";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs1bgc_key])) {
-            $wgs1bgc_bg_color = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$wgs1bgc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave' ),
-                'declarations' => array( 'background' => $wgs1bgc_bg_color ),
-            ) );
-        }
-
-        // Font Family
-        $wgs1ff_key = "wave_greetings_style_1_font_family";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs1ff_key])) {
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave' ),
-                'declarations' => array( 'font-family' => $cf7cw_options[$greetings_key][$wgs1ff_key] ),
-            ) );
-        }
-
-        // Wave Style 2 Greetings CTA Heading Text Size
-        $wgs2hs_key = "wave_greetings_style_2_heading_size";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs2hs_key])) {
-            $wgs2chs_key = "wave_greetings_style_2_custom_heading_size";
-            
-            $text_size = array( 
-                "small" => 12, 
-                "medium" => 14, 
-                "large" => 16, 
-                "custom" => (isset($cf7cw_options[$greetings_key][$wgs2chs_key]) && !empty($cf7cw_options[$greetings_key][$wgs2chs_key])) ? $cf7cw_options[$greetings_key][$wgs2chs_key] : $cf7cw_defaults[$greetings_key][$wgs2chs_key] 
-            );
-            $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$wgs2hs_key];
-
-            if(isset($text_size[$chat_widget_cta_text_size])) {
-                connect_cf7_to_social_apps_library_Styles()->add( array(
-                    'selectors'    => array( '.cf7cw-chat-widget-greetings-wave-2 .cf7cw-chat-widget-greetings-wave-title' ),
-                    'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
-                ) );
-            }
-        }
-
-        // Wave Style 2 Greetings CTA Message Text Size
-        $wgs2ms_key = "wave_greetings_style_2_message_size";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs2ms_key])) {
-            $wgs2mcs_key = "wave_greetings_style_2_message_custom_size";
-            
-            $text_size = array( 
-                "small" => 12, 
-                "medium" => 14, 
-                "large" => 16, 
-                "custom" => (isset($cf7cw_options[$greetings_key][$wgs2mcs_key]) && !empty($cf7cw_options[$greetings_key][$wgs2mcs_key])) ? $cf7cw_options[$greetings_key][$wgs2mcs_key] : $cf7cw_defaults[$greetings_key][$wgs2mcs_key] 
-            );
-            $chat_widget_cta_text_size = $cf7cw_options[$greetings_key][$wgs2ms_key];
-
-            if(isset($text_size[$chat_widget_cta_text_size])) {
-                connect_cf7_to_social_apps_library_Styles()->add( array(
-                    'selectors'    => array( '.cf7cw-chat-widget-greetings-wave-2 .cf7cw-chat-widget-greetings-wave-text' ),
-                    'declarations' => array( 'font-size' => intval($text_size[$chat_widget_cta_text_size]) . 'px' ),
-                ) );
-            }
-        }
-
-        /** Wave Style 2 Greeting Template Colors */
-
-        // Text Color
-        $wgs2hc_key = "wave_greetings_style_2_heading_color";
-        
-        if(isset($cf7cw_options[$greetings_key][$wgs2hc_key])) {
-            $wgs2hc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$wgs2hc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave-2 .cf7cw-chat-widget-greetings-wave-title' ),
-                'declarations' => array( 'color' => $wgs2hc_btn_txtcolor ),
-            ) );
-        }
-
-        // Message Color
-        $wgs2mc_key = "wave_greetings_style_2_message_color";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs2mc_key])) {
-            $wgs2mc_btn_txtcolor = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$wgs2mc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave-2 .cf7cw-chat-widget-greetings-wave-text' ),
-                'declarations' => array( 'color' => $wgs2mc_btn_txtcolor ),
-            ) );
-        }
-
-        // Background Color
-        $wgs2bgc_key = "wave_greetings_style_2_background_color";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs2bgc_key])) {
-            $wgs2bgc_bg_color = cf7cw_sanitize_hex_color( $cf7cw_options[$greetings_key][$wgs2bgc_key] );
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave-2' ),
-                'declarations' => array( 'background' => $wgs2bgc_bg_color ),
-            ) );
-        }
-
-        // Font Family
-        $wgs2ff_key = "wave_greetings_style_1_font_family";
-
-        if(isset($cf7cw_options[$greetings_key][$wgs2ff_key])) {
-            connect_cf7_to_social_apps_library_Styles()->add( array(
-                'selectors'    => array( '.cf7cw-chat-widget-greetings-wave-2' ),
-                'declarations' => array( 'font-family' => $cf7cw_options[$greetings_key][$wgs2ff_key] ),
-            ) );
         }
     }
 
@@ -435,14 +238,19 @@ if ( !function_exists( 'woocustomizer_customizer_library_styles' ) ) {
      */
     function woocustomizer_customizer_library_styles()
     {
-        do_action( 'customizer_library_styles' );
-        // Echo the rules
-        $css = connect_cf7_to_social_apps_library_Styles()->build();
-        
-        if ( !empty($css) ) {
-            wp_register_style( 'cf7cw-customizer-custom-css', false, array('cf7cw_style') );
-            wp_enqueue_style( 'cf7cw-customizer-custom-css' );
-            wp_add_inline_style( 'cf7cw-customizer-custom-css', $css );
+        $cf7cw_options  = get_option('cf7cw_options');
+        $chat_widget_status  = isset($cf7cw_options['triggers-targeting']['triggers_activate_cf7_form_chat_widget']) ? $cf7cw_options['triggers-targeting']['triggers_activate_cf7_form_chat_widget'] : "";
+
+        if(isset($chat_widget_status) && $chat_widget_status == "on") {
+            do_action( 'customizer_library_styles' );
+            // Echo the rules
+            $css = connect_cf7_to_social_apps_library_Styles()->build();
+            
+            if ( !empty($css) ) {
+                wp_register_style( 'cf7cw-customizer-custom-css', false, array('cf7cw_style') );
+                wp_enqueue_style( 'cf7cw-customizer-custom-css' );
+                wp_add_inline_style( 'cf7cw-customizer-custom-css', $css );
+            }
         }
     
     }

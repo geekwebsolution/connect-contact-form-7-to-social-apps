@@ -11,11 +11,11 @@ if (!class_exists('cf7cw_public')) {
 
         public function cf7cw_enqueue_scripts()
         {
-            wp_register_style("cf7cwp_style", plugins_url('/assets/css/cf7cwp-front-style.css', __DIR__), array(), CF7CWP_PLUGIN_VERSION);
-            wp_enqueue_style("cf7cwp_style");
+            wp_register_style("cf7cw_style", plugins_url('/assets/css/cf7cw-front-style.css', __DIR__), array(), CF7CW_PLUGIN_VERSION);
+            wp_enqueue_style("cf7cw_style");
 
-            wp_register_script("cf7cwp_script",  plugins_url('/assets/js/cf7cwp-front-script.js', __DIR__), array('jquery'), CF7CWP_PLUGIN_VERSION, true);
-            wp_enqueue_script("cf7cwp_script");
+            wp_register_script("cf7cw_script",  plugins_url('/assets/js/cf7cw-front-script.js', __DIR__), array('jquery'), CF7CW_PLUGIN_VERSION, true);
+            wp_enqueue_script("cf7cw_script");
 
             $cf7cw_options = cf7cw_options();
 
@@ -25,13 +25,12 @@ if (!class_exists('cf7cw_public')) {
             $on_click_greetings_action = $cf7cw_options['greetings']['greeting_behavior_on_click_action'];
             
             $country_code = $cf7cw_options['whatsapp_info']['country_code'];
-            $wh_number = $cf7cw_options['whatsapp_info']['wh_number'];            
+            $wh_number = $cf7cw_options['whatsapp_info']['wh_number'];
 
             $redirect_url = "https://wa.me/" . $country_code . $wh_number . "/?text=";
             
             wp_localize_script( 'cf7cw_script', 'cf7cwObj',
                 array(
-                    'ajaxurl' => admin_url( 'admin-ajax.php' ),
                     'time_delay_status' => $time_delay_status,
                     'triggers_form_after_second' => $triggers_form_after_second,
                     'form_close_on_submit' => $form_close_on_submit,
@@ -61,7 +60,7 @@ if (!class_exists('cf7cw_public')) {
             // $cf7cw_status = (!empty($chat_widget_phone_number) && !empty($chat_widget_cf7)) ? $chat_widget_status : $form_meta_status;
             $cf7cw_phone_number = (!empty($form_meta_status) && !empty($chat_widget_phone_number) && !empty($chat_widget_cf7) && $form_id == $chat_widget_cf7) ? $chat_widget_phone_number : $form_meta_phone_number;
 
-            if( (!empty($form_meta_status) && !empty($chat_widget_phone_number) && !empty($chat_widget_cf7) && $form_id == $chat_widget_cf7) || (!empty($form_meta_status) && !empty($form_meta_phone_number)) ) {
+            if( ($chat_widget_status == "on" && !empty($form_meta_status) && !empty($chat_widget_phone_number) && !empty($chat_widget_cf7) && $form_id == $chat_widget_cf7) || (!empty($form_meta_status) && !empty($form_meta_phone_number)) ) {
                 $wh_message_body = (isset($cf7cw_option['cf7cw_message_body'])) ? wp_unslash($cf7cw_option['cf7cw_message_body']) : cf7cw_public::connect_wh_message_body();
                 $wh_message_body = wpcf7_mail_replace_tags(@$wh_message_body);
 
@@ -90,32 +89,8 @@ if (!class_exists('cf7cw_public')) {
             $chat_widget_status  = isset($cf7cw_options['triggers-targeting']['triggers_activate_cf7_form_chat_widget']) ? $cf7cw_options['triggers-targeting']['triggers_activate_cf7_form_chat_widget'] : "";
 
             if(isset($chat_widget_status) && $chat_widget_status == "on") {
-                $exclude_pages  = isset($cf7cw_options['triggers-targeting']['targeting_exclude_pages']) ? $cf7cw_options['triggers-targeting']['targeting_exclude_pages'] : "";
-                $exclude_all_except_switch  = isset($cf7cw_options['triggers-targeting']['targeting_exclude_all_except_switch']) ? $cf7cw_options['triggers-targeting']['targeting_exclude_all_except_switch'] : "";
-                $exclude_all_except_pages  = isset($cf7cw_options['triggers-targeting']['targeting_exclude_all_except_pages']) ? $cf7cw_options['triggers-targeting']['targeting_exclude_all_except_pages'] : "";
-
-                if(isset($exclude_all_except_switch) && $exclude_all_except_switch == "on" && !empty($exclude_all_except_pages)) {
-                    if(is_page()) {
-                        $page_id = get_the_ID();
-                        if( in_array( $page_id, $exclude_all_except_pages ) ) {
-                            // Include Chat Widget
-                            include_once('templates/chat-widget.php');
-                        }
-                    }
-                }else if(isset($exclude_all_except_switch) && $exclude_all_except_switch != "on" && !empty($exclude_pages)) {
-                    if(is_page()) {
-                        $page_id = get_the_ID();
-                        if( !in_array( $page_id, $exclude_pages ) ) {
-                            // Include Chat Widget
-                            include_once('templates/chat-widget.php');
-                        }
-                    }
-                }else{
-                    // Include Chat Widget
-                    include_once('templates/chat-widget.php');
-                }
-
-                
+                // Include Chat Widget
+                include_once('templates/chat-widget.php');
             }
         }
 

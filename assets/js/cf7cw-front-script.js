@@ -17,8 +17,8 @@ jQuery(document).ready(function() {
             }
         }
         if(options.form_close_on_submit == "on") {
-            if(jQuery(this).parents('.cf7cw-chat-widgets').find('.cf7cw-chat-widget-begin').is(":visible")) {
-                jQuery(this).parents('.cf7cw-chat-widgets').find('.cf7cw-chat-widget-close-btn').trigger('click');
+            if(jQuery('body').find('.cf7cw-chat-widgets').find('.cf7cw-chat-widget-begin').is(":visible")) {
+                jQuery('body').find('.cf7cw-chat-widgets .cf7cw-chat-widget-close-btn').trigger('click');
             }
         }
         eraseCookie("cf7cw_options");

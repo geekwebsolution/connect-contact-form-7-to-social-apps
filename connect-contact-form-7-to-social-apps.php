@@ -3,7 +3,7 @@
 Plugin Name: Connect Contact Form 7 to Social App
 Description: Send a message directly to your WhatsApp account through Contact Form 7 forms.
 Author: Geek Code Lab
-Version: 2.1
+Version: 2.1.1
 Author URI: https://geekcodelab.com/
 Text Domain : connect-contact-form-7-to-social-app
 Requires Plugins: contact-form-7
@@ -11,7 +11,7 @@ Requires Plugins: contact-form-7
 
 if (!defined('ABSPATH')) exit;
 
-define('CF7CW_PLUGIN_VERSION', '2.1' );
+define('CF7CW_PLUGIN_VERSION', '2.1.1' );
 define('CF7CW_PRO_PLUGIN_LINK', 'https://geekcodelab.com/wordpress-plugins/connect-contact-form-7-to-social-app-pro/');
 
 if (!defined('CF7CW_PLUGIN_DIR_PATH'))
@@ -36,7 +36,7 @@ function cf7cw_add_plugin_settings_link($links)
 		$support_link = '<a href="https://geekcodelab.com/contact/" target="_blank" >' . __('Support', 'connect-contact-form-7-to-social-app') . '</a>';
 		array_unshift($links, $support_link);
 
-		$pro_link = '<a href="' . CF7CW_PRO_PLUGIN_LINK . '" target="_blank" style="color:#46b450;font-weight: 600;">' . __('Premium Upgrade') . '</a>';
+		$pro_link = '<a href="' . CF7CW_PRO_PLUGIN_LINK . '" target="_blank" style="color:#46b450;font-weight: 600;">' . __('Premium Upgrade', 'connect-contact-form-7-to-social-app') . '</a>';
 		array_unshift($links, $pro_link);
 
 		$setting_link = '<a href="' . admin_url('admin.php?page=connect-cf7cw') . '">' . __('Settings', 'connect-contact-form-7-to-social-app') . '</a>';
@@ -45,7 +45,7 @@ function cf7cw_add_plugin_settings_link($links)
 	return $links;
 }
 
-require_once(CF7CW_PLUGIN_DIR_PATH . 'includes/class-functions.php');
+require_once(CF7CW_PLUGIN_DIR_PATH . 'includes/functions.php');
 require_once(CF7CW_PLUGIN_DIR_PATH . 'public/class-public.php');
 require_once(CF7CW_PLUGIN_DIR_PATH . 'admin/class-admin.php');
 require_once(CF7CW_PLUGIN_DIR_PATH . 'includes/customizer/customizer-library/customizer-library.php');

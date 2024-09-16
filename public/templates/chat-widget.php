@@ -3,7 +3,6 @@ $defaults = cf7cw_defaults();
 $cf7cw_options = get_option('cf7cw_options');
 
 // Customize Icon - Sticky Widget
-$chat_widget_custom_icon = (isset($cf7cw_options['customize_form']['chat_widget_custom_icon'])) ? $cf7cw_options['customize_form']['chat_widget_custom_icon'] : '';
 $chat_widget_icon_position = (isset($cf7cw_options['customize_form']['chat_widget_icon_position'])) ? $cf7cw_options['customize_form']['chat_widget_icon_position'] : $defaults['customize_form']['chat_widget_icon_position'];
 
 // Call to action - Sticky Widget
@@ -34,7 +33,6 @@ $simple_greetings_message = (isset($cf7cw_options['greetings']['simple_greetings
 $wave_greetings_show_main_content = (isset($cf7cw_options['greetings']['wave_greetings_show_main_content'])) ? $cf7cw_options['greetings']['wave_greetings_show_main_content'] : $defaults['greetings']['wave_greetings_show_main_content'];
 $wave_greetings_custom_icon = (isset($cf7cw_options['greetings']['wave_greetings_style_1_custom_icon'])) ? $cf7cw_options['greetings']['wave_greetings_style_1_custom_icon'] : "";
 $wave_greetings_style_1_icon_position = (isset($cf7cw_options['greetings']['wave_greetings_style_1_icon_position'])) ? $cf7cw_options['greetings']['wave_greetings_style_1_icon_position'] : $defaults['greetings']['wave_greetings_style_1_icon_position'];
-$wave_greetings_style_2_icon_position = (isset($cf7cw_options['greetings']['wave_greetings_style_2_icon_position'])) ? $cf7cw_options['greetings']['wave_greetings_style_2_icon_position'] : $defaults['greetings']['wave_greetings_style_2_icon_position'];
 
 $wave_greetings_style_1_greeting_heading = (isset($cf7cw_options['greetings']['wave_greetings_style_1_greeting_heading'])) ? $cf7cw_options['greetings']['wave_greetings_style_1_greeting_heading'] : $defaults['greetings']['wave_greetings_style_1_greeting_heading'];
 $wave_greetings_style_1_message = (isset($cf7cw_options['greetings']['wave_greetings_style_1_message'])) ? $cf7cw_options['greetings']['wave_greetings_style_1_message'] : $defaults['greetings']['wave_greetings_style_1_message'];
@@ -42,10 +40,6 @@ $wave_greetings_style_1_message = (isset($cf7cw_options['greetings']['wave_greet
 $wave_greetings_style_1_show_greeting_cta = (isset($cf7cw_options['greetings']['wave_greetings_style_1_show_greeting_cta'])) ? $cf7cw_options['greetings']['wave_greetings_style_1_show_greeting_cta'] : $defaults['greetings']['wave_greetings_style_1_show_greeting_cta'];
 $wave_greetings_style_1_greeting_cta_text = (isset($cf7cw_options['greetings']['wave_greetings_style_1_greeting_cta_text'])) ? $cf7cw_options['greetings']['wave_greetings_style_1_greeting_cta_text'] : $defaults['greetings']['wave_greetings_style_1_greeting_cta_text'];
 $wave_greetings_style_1_cta_icon = (isset($cf7cw_options['greetings']['wave_greetings_style_1_cta_icon'])) ? $cf7cw_options['greetings']['wave_greetings_style_1_cta_icon'] : "";
-
-$wave_greetings_style_2_show_greeting_cta = (isset($cf7cw_options['greetings']['wave_greetings_style_2_show_greeting_cta'])) ? $cf7cw_options['greetings']['wave_greetings_style_2_show_greeting_cta'] : $defaults['greetings']['wave_greetings_style_2_show_greeting_cta'];
-$wave_greetings_style_2_greeting_heading = (isset($cf7cw_options['greetings']['wave_greetings_style_2_greeting_heading'])) ? $cf7cw_options['greetings']['wave_greetings_style_2_greeting_heading'] : $defaults['greetings']['wave_greetings_style_2_greeting_heading'];
-$wave_greetings_style_2_message = (isset($cf7cw_options['greetings']['wave_greetings_style_2_message'])) ? $cf7cw_options['greetings']['wave_greetings_style_2_message'] : $defaults['greetings']['wave_greetings_style_2_message'];
 
 $greeting_behavior_on_click_action = (isset($cf7cw_options['greetings']['greeting_behavior_on_click_action'])) ? $cf7cw_options['greetings']['greeting_behavior_on_click_action'] : $defaults['greetings']['greeting_behavior_on_click_action'];
 
@@ -108,7 +102,7 @@ $default_greetings_disaply = ($form_open_by_default == 'on') ? 'none' : 'flex';
             } ?>
             <div class="cf7cw-chat-widget-handle-btn-icon">
                 <?php
-                $whatsapp_icon_url = (isset($chat_widget_custom_icon) && !empty($chat_widget_custom_icon)) ? wp_get_attachment_url($chat_widget_custom_icon) : CF7CW_PLUGIN_URL . '/assets/images/whatsapp.svg';
+                $whatsapp_icon_url = CF7CW_PLUGIN_URL . '/assets/images/whatsapp.svg';
                 ?>
                 <img src="<?php echo esc_url($whatsapp_icon_url); ?>" alt="whatsapp" width="1em" height="1em">
 
@@ -134,15 +128,6 @@ $default_greetings_disaply = ($form_open_by_default == 'on') ? 'none' : 'flex';
                         <?php
                         if (isset($simple_greetings_message) && !empty($simple_greetings_message)) { ?>
                             <div class="cf7cw-chat-widget-greetings-simple-text"><?php esc_html_e($simple_greetings_message); ?></div>
-                        <?php
-                        } ?>
-                        <?php
-                        if (isset($simple_greetings_template_type) && $simple_greetings_template_type == "choose_simple_greetings_template_type_style_2") { ?>
-                            <div class="cf7cw-chat-widget-greetings-simple-cloud">
-                                <svg width="121" height="27" viewBox="0 0 121 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M120.167 26.9229H0.444336C6.30566 11.199 21.4561 0 39.2227 0C53.7012 0 66.4424 7.43732 73.835 18.7C79.0801 16.2946 84.9141 14.9537 91.0615 14.9537C102.41 14.9537 112.692 19.5233 120.167 26.9229Z" fill="currentColor"></path>
-                                </svg>
-                            </div>
                         <?php
                         } ?>
                     </div>
@@ -174,9 +159,7 @@ $default_greetings_disaply = ($form_open_by_default == 'on') ? 'none' : 'flex';
                         <?php
                         if (isset($wave_greetings_show_main_content) && $wave_greetings_show_main_content == "on") { ?>
                             <div class="cf7cw-chat-widget-greetings-wave-1-icon <?php esc_attr_e($wave_order); ?>">
-                                <?php
-                                $wave_icon_url = (isset($wave_greetings_custom_icon) && !empty($wave_greetings_custom_icon)) ? wp_get_attachment_url($wave_greetings_custom_icon) : CF7CW_PLUGIN_URL . '/assets/images/wave.svg';
-                                ?>
+                                <?php $wave_icon_url = CF7CW_PLUGIN_URL . '/assets/images/wave.svg'; ?>
                                 <img src="<?php echo esc_url($wave_icon_url); ?>" alt="wave" width="80px" height="80px">
                             </div>
                         <?php
@@ -185,42 +168,19 @@ $default_greetings_disaply = ($form_open_by_default == 'on') ? 'none' : 'flex';
                             <?php esc_html_e($wave_greetings_style_1_greeting_heading); ?>
                         </div>
                         <div class="cf7cw-chat-widget-greetings-wave-text <?php esc_attr_e($message_order); ?>"><?php echo esc_textarea($wave_greetings_style_1_message); ?></div>
-                        <div class="cf7cw-chat-widget-greetings-wave-cta <?php esc_attr_e($cta_order); ?>">
-                            <span class="cf7cw-chat-widget-greetings-wave-cta-icon">
-                                <?php
-                                $greetings_cta_icon_url = (isset($wave_greetings_style_1_cta_icon) && !empty($wave_greetings_style_1_cta_icon)) ? wp_get_attachment_url($wave_greetings_style_1_cta_icon) : CF7CW_PLUGIN_URL . '/assets/images/greeting-cta-chat-icon.svg';
-                                ?>
-                                <img src="<?php echo esc_url($greetings_cta_icon_url); ?>" alt="greeting-cta-chat-icon" width="1em" height="1em">
-                            </span>
-                            <span class="cf7cw-chat-widget-greetings-wave-cta-text"><?php esc_html_e($wave_greetings_style_1_greeting_cta_text); ?></span>
-                        </div>
-                    </div>
-                <?php
-                } ?>
-
-                <?php
-                if ($choose_greetings_template == "wave" && $wave_greetings_template_type == "choose_wave_greetings_template_type_style_2") {
-                    // $wave_greetings_style_2_icon_position
-                    $wave_order = $cta_order = "";
-                    if($wave_greetings_style_1_icon_position == 'after_heading') {
-                        $wave_order = 'order-2';
-                        $cta_order = 'order-1';
-                    } ?>
-                    <div class="cf7cw-chat-widget-greeting-box cf7cw-chat-widget-sub-greetings cf7cw-chat-widget-greetings-wave cf7cw-chat-widget-greetings-wave-2" style="display: <?php esc_attr_e($default_greetings_disaply); ?>;">
-                        <div class="cf7cw-chat-widget-greetings-close-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="m13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29l-4.3 4.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l4.29-4.3l4.29 4.3a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42Z" />
-                            </svg>
-                        </div>
-                        <div class="cf7cw-chat-widget-greetings-wave-2-icon <?php esc_attr_e($wave_order); ?>">
-                            <img src="http://localhost/geek-code-lab/wp-content/plugins/connect-contact-form-7-to-social-apps/assets/images/wave.svg" alt="wave" width=80px height=80px>
-                        </div>
-                        <div class="cf7cw-chat-widget-greetings-wave-2-content <?php esc_attr_e($cta_order); ?>">
-                            <div class="cf7cw-chat-widget-greetings-wave-title">
-                                <?php esc_html_e($wave_greetings_style_2_greeting_heading); ?>
+                        <?php
+                        if(isset($wave_greetings_style_1_show_greeting_cta) && $wave_greetings_style_1_show_greeting_cta == "on") {
+                            ?>
+                            <div class="cf7cw-chat-widget-greetings-wave-cta <?php esc_attr_e($cta_order); ?>">
+                                <span class="cf7cw-chat-widget-greetings-wave-cta-icon">
+                                    <?php $greetings_cta_icon_url = CF7CW_PLUGIN_URL . '/assets/images/greeting-cta-chat-icon.svg'; ?>
+                                    <img src="<?php echo esc_url($greetings_cta_icon_url); ?>" alt="greeting-cta-chat-icon" width="1em" height="1em">
+                                </span>
+                                <span class="cf7cw-chat-widget-greetings-wave-cta-text"><?php esc_html_e($wave_greetings_style_1_greeting_cta_text); ?></span>
                             </div>
-                            <div class="cf7cw-chat-widget-greetings-wave-text"><?php echo esc_textarea($wave_greetings_style_2_message); ?></div>
-                        </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                 <?php
                 } ?>
@@ -235,11 +195,8 @@ $default_greetings_disaply = ($form_open_by_default == 'on') ? 'none' : 'flex';
             <?php
             } ?>
             <div class="cf7cw-chat-widget-handle-btn-icon">
-                <?php
-                $whatsapp_icon_url = (isset($chat_widget_custom_icon) && !empty($chat_widget_custom_icon)) ? wp_get_attachment_url($chat_widget_custom_icon) : CF7CW_PLUGIN_URL . '/assets/images/whatsapp.svg';
-                ?>
+                <?php $whatsapp_icon_url = CF7CW_PLUGIN_URL . '/assets/images/whatsapp.svg'; ?>
                 <img src="<?php echo esc_url($whatsapp_icon_url); ?>" alt="whatsapp" width="1em" height="1em">
-
             </div>
         </div>
     </div>
