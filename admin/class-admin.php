@@ -36,7 +36,7 @@ if (!class_exists('cf7cw_admin')) {
 
         public function cf7cw_enqueue_admin_scripts($hook)
         {
-            if ($hook == 'contact_page_connect-cf7cw' || $hook == 'toplevel_page_wpcf7' || $hook == 'contact_page_wpcf7-new') {
+            if (strpos($hook, 'connect-cf7cw') !== false || $hook == 'toplevel_page_wpcf7' || $hook == 'contact_page_wpcf7-new') {
                 wp_enqueue_style('cf7cw-intlTelInput', plugins_url('assets/css/intlTelInput.css', __DIR__), array(), CF7CW_PLUGIN_VERSION);
                 wp_enqueue_style('wp-color-picker');
                 wp_enqueue_style('cf7cw-grid', plugins_url('assets/css/cf7cw-grid.min.css', __DIR__), array(), CF7CW_PLUGIN_VERSION);
