@@ -70,7 +70,12 @@ if (isset($_POST['cf7cw_save_changes'])) {
 
     if (sizeof($updated_option) > 0) {
         update_option('cf7cw_options', $updated_option);
-        wp_safe_redirect(admin_url('admin.php?page=connect-cf7cw#step=1'));
+        ?>
+        <script type="text/javascript">
+            window.location = "<?php echo admin_url('admin.php?page=connect-cf7cw#step=1'); ?>";
+            window.location.reload();
+        </script>
+        <?php
     }
 }
 ?>
