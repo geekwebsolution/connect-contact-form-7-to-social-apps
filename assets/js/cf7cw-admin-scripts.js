@@ -2,7 +2,7 @@ jQuery(document).ready(function() {
 
     var cf7cw_page = cf7cwObj.cf7cw_page;
     
-    if(typeof cf7cw_page !== "undefined" && cf7cw_page == "contact_page_connect-cf7cw") {
+    if(typeof cf7cw_page !== "undefined" && cf7cw_page.includes("connect-cf7cw")) {
         /**
          * Whatsapp number field flag and country code JS
          */
@@ -46,7 +46,7 @@ jQuery(window).on('load', function () {
 
     var cf7cw_page = cf7cwObj.cf7cw_page;
 
-    if(typeof cf7cw_page !== "undefined" && cf7cw_page == "contact_page_connect-cf7cw") {
+    if(typeof cf7cw_page !== "undefined" && cf7cw_page.includes("connect-cf7cw")) {
 
         if (jQuery("#connect-whatsapp").find(".cf7cw-input-error").length != 0) {
             jQuery("#connect-whatsapp-tab").addClass("cf7cw-config");

@@ -5,7 +5,7 @@ Tags: whatsapp, contact form 7, click to chat, whatsapp chat, whatsapp support
 Requires PHP: 7.4
 Requires at least: 6.3
 Tested up to: 6.4
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 Requires Plugins: contact-form-7
 License: GPLv2 or later
 
@@ -19,7 +19,7 @@ This plugin helps your users to send their data to your whatsapp account after t
 
 You can choose to open whatsapp window in either current window or new window.
 
-**🎯 Free Features**
+== 🎯 Free Features == 
 
 **💬 Contact Form 7 to WhatsApp:**  
 Easily integrate WhatsApp with Contact Form 7. Send form submissions directly to your WhatsApp number and convert your CF7 forms into a floating contact form for better engagement. This is the ultimate integration between WhatsApp and WordPress.
@@ -50,7 +50,7 @@ Give users the option to open the WhatsApp window in a new tab, enhancing their 
 
 
 
-**🚀 Pro Features**
+== 🚀 Pro Features == 
 
 **📧 Disable Contact Form 7 Email Notifications:**  
 Disable email notifications for selected Contact Form 7 forms and use FormyChat without requiring an SMTP plugin.
@@ -94,6 +94,9 @@ After active plugin go to Contact form 7-> Edit Form -> WhatsApp(tab)
 
 
 == Changelog ==
+= 2.1.2 =
+ Fixed old users default activation of chat widget
+
 = 2.1.1 =
  Introduced new chat widget with contact form 7
 
