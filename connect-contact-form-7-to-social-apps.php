@@ -37,7 +37,7 @@ function cf7cw_plugin_active_notice()
 		deactivate_plugins('connect-contact-form-7-to-social-app-pro/connect-contact-form-7-to-social-app-pro.php');
 	}
 }
-add_action('upgrader_process_complete', 'cf7cw_updater_activate'); // remove  transient  on plugin  update
+add_action('upgrader_process_complete', 'cf7cw_updater_activate'); // remove transient on plugin update
 
 $plugin = plugin_basename(__FILE__);
 add_filter("plugin_action_links_$plugin", 'cf7cw_add_plugin_settings_link');
