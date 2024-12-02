@@ -11,8 +11,14 @@ Requires Plugins: contact-form-7
 
 if (!defined('ABSPATH')) exit;
 
-define('CF7CW_PLUGIN_VERSION', '2.1.2' );
+define('CF7CW_BUILD', '2.1.2' );
 define('CF7CW_PRO_PLUGIN_LINK', 'https://geekcodelab.com/wordpress-plugins/connect-contact-form-7-to-social-app-pro/');
+
+if (!defined("CF7CW_PLUGIN_BASENAME"))
+	define("CF7CW_PLUGIN_BASENAME", plugin_basename(__FILE__));
+
+if (!defined("CF7CW_PLUGIN_DIR"))
+	define("CF7CW_PLUGIN_DIR", plugin_basename(__DIR__));
 
 if (!defined('CF7CW_PLUGIN_DIR_PATH'))
 	define('CF7CW_PLUGIN_DIR_PATH', plugin_dir_path(__FILE__));
@@ -20,13 +26,18 @@ if (!defined('CF7CW_PLUGIN_DIR_PATH'))
 if (!defined('CF7CW_PLUGIN_URL'))
 	define('CF7CW_PLUGIN_URL', plugins_url() . '/' . basename(dirname(__FILE__)));
 
+
+require (CF7CW_PLUGIN_DIR_PATH .'updater/updater.php');
+
 register_activation_hook(__FILE__, 'cf7cw_plugin_active_notice');
 function cf7cw_plugin_active_notice()
 {
+	cf7cw_updater_activate();
 	if (is_plugin_active('connect-contact-form-7-to-social-app-pro/connect-contact-form-7-to-social-app-pro.php')) {
 		deactivate_plugins('connect-contact-form-7-to-social-app-pro/connect-contact-form-7-to-social-app-pro.php');
 	}
 }
+add_action('upgrader_process_complete', 'cf7cw_updater_activate'); // remove  transient  on plugin  update
 
 $plugin = plugin_basename(__FILE__);
 add_filter("plugin_action_links_$plugin", 'cf7cw_add_plugin_settings_link');
