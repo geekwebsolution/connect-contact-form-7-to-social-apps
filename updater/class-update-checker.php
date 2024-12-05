@@ -33,6 +33,7 @@ if (!class_exists('CF7CW_Update_Checker')) {
                     'headers' => ['Accept' => 'application/json'],
                 ]
             );
+            
             if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
                 return false;
             }

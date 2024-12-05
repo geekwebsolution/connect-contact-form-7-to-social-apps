@@ -5,7 +5,7 @@ Tags: whatsapp, contact form 7, click to chat, whatsapp chat, whatsapp support
 Requires PHP: 7.4
 Requires at least: 6.3
 Tested up to: 6.4
-Stable tag: 2.1.2
+Stable tag: 2.2.0
 Requires Plugins: contact-form-7
 License: GPLv2 or later
 
@@ -94,7 +94,11 @@ After active plugin go to Contact form 7-> Edit Form -> WhatsApp(tab)
 
 
 == Changelog ==
-= 2.1.2 =
+= 2.2.0 =
+ Fix Bug
+ Added auto updated function
+ 
+ = 2.1.2 =
  Fixed old users default activation of chat widget
 
 = 2.1.1 =
